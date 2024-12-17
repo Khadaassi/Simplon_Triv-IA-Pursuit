@@ -2,6 +2,7 @@ import pygame
 import math
 import random
 import time
+from src.game import Game
 
 #initialize the constructor 
 pygame.init() 
@@ -44,31 +45,33 @@ screen.blit(title, (screen_width/2-100, screen_height/2))
 def pursuit_board():
     center = (screen_width/2 -450, screen_height/2)
     radius = 400
-    cases = 48
+    # cases = 48
+    board = Game(6)
+    print(board)
 
-    for i in range(cases):
-        angle = (2 * math.pi / cases) * i
-        x = center[0] + int(radius * math.cos(angle))
-        y = center[1] + int(radius * math.sin(angle))
+    # for i in range(cases):
+    #     angle = (2 * math.pi / cases) * i
+    #     x = center[0] + int(radius * math.cos(angle))
+    #     y = center[1] + int(radius * math.sin(angle))
 
-        if i % 8 == 0:
-            list_of_colours = [blue, green, purple, pink, orange, yellow]
-            #case_color = random.choice(liste_of_colours)
-            color_choice = random.choice(list_of_colours)
-            pygame.draw.circle(screen, color_choice, (x, y), 30)
-            list_of_colours.remove(color_choice)
+    #     if i % 8 == 0:
+    #         list_of_colours = [blue, green, purple, pink, orange, yellow]
+    #         #case_color = random.choice(liste_of_colours)
+    #         color_choice = random.choice(list_of_colours)
+    #         pygame.draw.circle(screen, color_choice, (x, y), 30)
+    #         list_of_colours.remove(color_choice)
 
             
-        elif i % 8 == 1:
-            #case_color = random.choice(liste_of_colours)
-            pygame.draw.circle(screen, light_grey, (x, y), 20)
-        else:
-            pygame.draw.circle(screen, pink, (x, y), 20)
+    #     elif i % 8 == 1:
+    #         #case_color = random.choice(liste_of_colours)
+    #         pygame.draw.circle(screen, light_grey, (x, y), 20)
+    #     else:
+    #         pygame.draw.circle(screen, pink, (x, y), 20)
 
-    screen.blit(title, (screen_width/2, screen_height/2-500))
-    screen.blit(scoring, (screen_width/2+350, screen_height/2 - 250))
-    pygame.draw.circle(screen, black, center, 50)
-    pygame.draw.circle(screen, light_grey, center, 45)
+    # screen.blit(title, (screen_width/2, screen_height/2-500))
+    # screen.blit(scoring, (screen_width/2+350, screen_height/2 - 250))
+    # pygame.draw.circle(screen, black, center, 50)
+    # pygame.draw.circle(screen, light_grey, center, 45)
 
 
 #start the display
