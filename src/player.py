@@ -4,9 +4,13 @@ class Player():
         self.position = 0
         self.score = 0
 
-    def move(self, steps, board_size):
-        self.position = (self.position + steps) % board_size
-    
+    def move(self, steps, board_size, direction):
+        if direction == ">":
+            self.position = (self.position + steps) % board_size
+        if direction == "<":
+             self.position = (self.position - steps) % board_size
+
     def count_score(self):
         self.score += 1
         return self.score
+    
