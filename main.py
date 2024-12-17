@@ -10,9 +10,13 @@ def main():
     
     print("            Le jeu commence !")
     print("-"* 50)
+
     for turn in range(num_turns):
         print(f"--- Tour {turn + 1} ---")
-
+        game.play_turn() 
+        print("-" * 50)
+    
+    print("Le jeu est terminé !")
 
 if __name__ == "__main__":
     main()

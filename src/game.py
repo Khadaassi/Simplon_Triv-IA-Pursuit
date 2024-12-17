@@ -1,9 +1,14 @@
-import json
-import random
+import json, random
+from src.player import Player
+from src.dice import rolling_dice
+
 class Game():
 
-    def __init__(self, size):
-        self.size = size
+    def __init__(self, players):
+        self.players = players
+        self.board = self.create_board()
+        self.current_player_idx = 0
+        self.questions = self.load_questions()
 
     def load_questions(self):
         with open('data/questions.json', 'r') as file:
@@ -33,3 +38,30 @@ class Game():
             else: None
         return None
 
+    def play_turn(self):
+        player = self.players[self.current_player_idx]
+        roll = rolling_dice()
+        print(f"{player.name} lance le dé et obtient {roll}")
+        player.move(roll, len(self.board))
+        current_category = self.board[player.position]
+        print(f"{player.name} se trouve sur la case {player.position + 1} (Catégorie: {current_category})")
+        
+        question_data = self.get_question_by_category(current_category)
+        if question_data:
+            print(f"Question: {question_data['question']}")
+            print("Choix:")
+            for i, choix in enumerate(question_data['choix'], 1):
+                print(f"{i}. {choix}")
+            
+            player_answer = input(f"Votre réponse : ")
+            
+            if player_answer.strip().lower() == question_data['reponse'].lower():
+                print("Bonne réponse !")
+                score= player.count_score()
+                print(f"Score = {score}")
+            else:
+                print(f"Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
+        else:
+            print("Aucune question disponible dans cette catégorie.")
+        
+        self.current_player_idx = (self.current_player_idx + 1) % len(self.players)
