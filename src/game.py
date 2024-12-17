@@ -38,12 +38,20 @@ class Game():
             else: None
         return None
 
+    current_category = 0
+
     def play_turn(self):
         player = self.players[self.current_player_idx]
         roll = rolling_dice()
         print(f"{player.name} lance le dé et obtient {roll}")
         player.move(roll, len(self.board))
         current_category = self.board[player.position]
+
+    sum_of_count_by_theme = sum(player.score_by_theme.values())
+    
+
+    if player.sum_of_count_by_theme == 6 :
+        
         print(f"{player.name} se trouve sur la case {player.position + 1} (Catégorie: {current_category})")
 
         question_data = self.get_question_by_category(current_category)
@@ -53,17 +61,21 @@ class Game():
             for i, choix in enumerate(question_data['choix'], 1):
                 print(f"{i}. {choix}")
             
-            player_answer = input(f"Votre réponse : ")
-            
+            scoreByTheme = player.score_by_theme[current_category] + 1
+
             if player_answer.strip().lower() == question_data['reponse'].lower():
                 print("Bonne réponse !")
                 score= player.count_score()
-
-                if player.listeByTheme[current_category] > 1 :
-                    scoreByTheme = player.listeByTheme[current_category] + 1
-                
+               
+                if isinstance(current_category, list) :
+                 if player.score_by_theme[current_category] < 1 :
+                    scoreByTheme += 1
                 print(f"Score = {score}")
-                print(f"Score par thème = {}")
+                print(f"Score par thème = {scoreByTheme}")
+                if player.sum_of_count_by_theme == 6: 
+                     print("Do you want to enter the gateway ? (Y/N)")
+                else : current_category=current_category[0]
+
             else:
                 print(f"Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
         else:
