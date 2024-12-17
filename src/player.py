@@ -7,5 +7,6 @@ class Player():
     def move(self, steps, board_size):
         self.position = (self.position + steps) % board_size
     
-    def count_score(self, ):
+    def count_score(self):
         self.score += 1
+        return self.score
