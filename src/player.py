@@ -1,15 +1,12 @@
-from src.dice import rolling_dice
-
-
 class Player():
-    def __init__(self, name, position, score):
+    def __init__(self, name):
         self.name = name
         self.position = 0
         self.score = 0
 
-    def move(self, position):
-        
-        pass
+    def move(self, steps, board_size):
+        self.position = (self.position + steps) % board_size
     
     def count_score(self):
-        pass
+        self.score += 1
+        return self.score
