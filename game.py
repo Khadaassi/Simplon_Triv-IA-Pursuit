@@ -1,21 +1,20 @@
 import json
 import random
 
-
 def lancer_de():
     return random.randint(1, 6)
 
-chemin_fichier = r"C:\Users\leoga\Downloads\questions.JSON"
+chemin_fichier = r"C:\Users\leoga\Downloads\data_test.JSON"
 with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
     donnees = json.load(fichier)
 
 questions_data = {
-    'geography': donnees['geography'],
-    'history': donnees['history'],
-    'science': donnees['science'],
-    'arts': donnees['arts'],
-    'sports': donnees['sports'],
-    'entertainment': donnees['entertainment']
+    'Bases de données': donnees['Bases de données'],
+    'Langages de programmation': donnees['Langages de programmation'],
+    'Ligne de commandes': donnees['Ligne de commandes'],
+    'Actualités IA': donnees['Actualités IA'],
+    'DevOps': donnees['DevOps'],
+    'AGIL': donnees['AGIL']
 }
 
 
@@ -26,13 +25,14 @@ used_questions = {theme: [] for theme in questions_data.keys()}
 
 
 board = [
-    "Geography", "History", "Science", "Arts", "Sports", ['Entertainment', 'Arts', 'Sports', 'Science', 'Geography', 'History'],
-    "Science", "Arts", "Sports", "Entertainment", "Geography", ['History', 'Arts', 'Sports', 'Science', 'Geography', 'Entertainment'],
-    "Arts", "Sports", "Entertainment", "Geography", "History", ['Science', 'Arts', 'Sports', 'Entertainment', 'Geography', 'History'],
-    "Sports", "Entertainment", "Geography", "History", "Science", ['Arts', 'Entertainment', 'Sports', 'Science', 'Geography', 'History'],
-    "Entertainment", "Geography", "History", "Science", "Arts", ['Sports', 'Arts', 'Entertainment', 'Science', 'Geography', 'History'],
-    "History", "Science", "Arts", "Sports", "Entertainment", ['Geography', 'Arts', 'Sports', 'Science', 'Entertainment', 'History']
+    "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", ['AGIL', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", "Bases de données", ['Langages de programmation', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'AGIL'],
+    "Actualités IA", "DevOps", "AGIL", "Bases de données", "Langages de programmation", ['Ligne de commandes', 'Actualités IA', 'DevOps', 'AGIL', 'Bases de données', 'Langages de programmation'],
+    "DevOps", "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", ['Actualités IA', 'AGIL', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", ['DevOps', 'Actualités IA', 'AGIL', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", ['Bases de données', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'AGIL', 'Langages de programmation']
 ]
+
 
 
 print("Pour lancer le dé, tapez 'go'")
