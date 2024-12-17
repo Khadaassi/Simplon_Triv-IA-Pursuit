@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+from src.game import Game
 
 #initialize the constructor 
 pygame.init() 
@@ -42,16 +43,20 @@ screen.blit(title, (screen_width/2-100, screen_height/2))
 def pursuit_board():
     center = (screen_width/2-450, screen_height/2)
     radius = 400
-    cases = 48
+    
+    cases= Game.create_board()
 
-    for i in range(cases):
+    for i in range(len(cases)):
         angle = (2 * math.pi / cases) * i
         x = center[0] + int(radius * math.cos(angle))
         y = center[1] + int(radius * math.sin(angle))
 
-        if i % 8 == 0:
-            #case_color = random.choice(liste_of_colours)
-            pygame.draw.circle(screen, green, (x, y), 30)
+        # if i % 8 == 0:
+        #     #case_color = random.choice(liste_of_colours)
+        #     pygame.draw.circle(screen, green, (x, y), 30)
+        if cases[i] == 'Bases de données':
+            pygame.draw.circle(screen, blue, (x, y), 20)
+
         elif i % 8 == 1:
             #case_color = random.choice(liste_of_colours)
             pygame.draw.circle(screen, light_grey, (x, y), 20)
