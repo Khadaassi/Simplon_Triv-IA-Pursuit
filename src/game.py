@@ -1,7 +1,14 @@
-import json, random
+import json, random, time
 from src.player import Player
 from src.dice import rolling_dice
 
+
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+BLUE = "\033[34m"
+RESET = "\033[0m"
+BOLD = "\033[1m"
 class Game():
 
     def __init__(self, players):
@@ -16,12 +23,12 @@ class Game():
         
     def create_board(self):
         categories_per_quarter = [
-    "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", ['AGIL', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", "Bases de données", ['Langages de programmation', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'AGIL'],
-    "Actualités IA", "DevOps", "AGIL", "Bases de données", "Langages de programmation", ['Ligne de commandes', 'Actualités IA', 'DevOps', 'AGIL', 'Bases de données', 'Langages de programmation'],
-    "DevOps", "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", ['Actualités IA', 'AGIL', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", ['DevOps', 'Actualités IA', 'AGIL', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", ['Bases de données', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'AGIL', 'Langages de programmation']
+    ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
+    ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
+    ["Agile", "DevOps", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
+    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+    ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
+    ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
 ]
         plateau = []
         for i in range(6):
@@ -41,22 +48,23 @@ class Game():
     def play_turn(self):
         player = self.players[self.current_player_idx]
         roll = rolling_dice()
-        print(f"{player.name} lance le dé et obtient {roll}")
-        player.move(roll, len(self.board))
+        print(f"{RESET}{player.name} lances le dé et obtiens {roll}")
+        direction = input("Vers où souhaitez vous vous déplacer ( < ou >)?")
+        player.move(roll, len(self.board), direction)
         current_category = self.board[player.position]
-        print(f"{player.name} se trouve sur la case {player.position + 1} (Catégorie: {current_category})")
-
+        print(f"{player.name} se trouve sur la case {player.position + 1} {BOLD}{BLUE}(Catégorie: {current_category})")
+        
         question_data = self.get_question_by_category(current_category)
         if question_data:
-            print(f"Question: {question_data['question']}")
-            print("Choix:")
+            print(f"{BOLD}{BLUE}Question: {RESET}{question_data['question']}")
+            print(f"{BOLD}{BLUE}Choix:")
             for i, choix in enumerate(question_data['choix'], 1):
-                print(f"{i}. {choix}")
+                print(f"{RESET}{i}. {choix}")
             
             player_answer = input(f"Votre réponse : ")
-            
+            time.sleep(1)
             if player_answer.strip().lower() == question_data['reponse'].lower():
-                print("Bonne réponse !")
+                print(f"{GREEN}Bonne réponse !")
                 score= player.count_score()
 
                 if player.listeByTheme[current_category] > 1 :
@@ -65,7 +73,7 @@ class Game():
                 print(f"Score = {score}")
                 print(f"Score par thème = {}")
             else:
-                print(f"Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
+                print(f"{RED}Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
         else:
             print("Aucune question disponible dans cette catégorie.")
         
