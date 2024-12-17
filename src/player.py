@@ -3,6 +3,8 @@ class Player():
         self.name = name
         self.position = 0
         self.score = 0
+        self.count_by_theme = 0
+        self.score_by_theme =  {"Bases de données":0,"Langages de programmation":0,"Ligne de commandes":0, "Actualités IA":0,"DevOps":0,"Agile":0}
 
     def move(self, steps, board_size, direction):
         if direction == ">":
