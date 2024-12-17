@@ -44,10 +44,10 @@ def pursuit_board():
     center = (screen_width/2-450, screen_height/2)
     radius = 400
     
-    cases= Game.create_board()
+    cases= Game.create_board(36)
 
     for i in range(len(cases)):
-        angle = (2 * math.pi / cases) * i
+        angle = (2 * math.pi / len(cases)) * i
         x = center[0] + int(radius * math.cos(angle))
         y = center[1] + int(radius * math.sin(angle))
 
