@@ -63,12 +63,20 @@ class Game():
             
             player_answer = input(f"Votre réponse : ")
             time.sleep(1)
+            scoreByTheme = player.score_by_theme.get(current_category, 0)
             if player_answer.strip().lower() == question_data['reponse'].lower():
                 print(f"{GREEN}Bonne réponse !")
                 score= player.count_score()
+
+                if player.score_by_theme[current_category] < 1 :
+                    scoreByTheme  += 1
+                print(f"Score pour le thème {current_category} = {scoreByTheme}")
+                
                 print(f"Score = {score}")
             else:
                 print(f"{RED}Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
+                print(f"{GREEN}Score pour le thème {current_category} = {scoreByTheme}")
+                
         else:
             print("Aucune question disponible dans cette catégorie.")
         
