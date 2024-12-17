@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 #initialize the constructor 
 pygame.init() 
@@ -19,6 +20,7 @@ purple = (151,94,204)
 pink = (204,94,200)
 orange = (204,141,73)
 yellow = (204,193,73)
+liste_of_colours = (blue, green, purple, pink, orange, yellow)
 
 #initialize dimensions
 screen_width = screen.get_width() 
@@ -38,20 +40,24 @@ screen.blit(title, (screen_width/2-100, screen_height/2))
 def pursuit_board():
     center = (screen_width/2, screen_height/2)
     radius = 400
-    cases = 42
+    cases = 48
 
     for i in range(cases):
         angle = (2 * math.pi / cases) * i
         x = center[0] + int(radius * math.cos(angle))
         y = center[1] + int(radius * math.sin(angle))
 
-        if i % 6 == 0:
-            pygame.draw.circle(screen, blue, (x, y), 20)
+        if i % 8 == 0:
+            #case_color = random.choice(liste_of_colours)
+            pygame.draw.circle(screen, green, (x, y), 30)
+        elif i % 8 == 1:
+            #case_color = random.choice(liste_of_colours)
+            pygame.draw.circle(screen, light_grey, (x, y), 20)
         else:
             pygame.draw.circle(screen, pink, (x, y), 20)
 
     pygame.draw.circle(screen, black, center, 50)
-    pygame.draw.circle(screen, white, center, 45)
+    pygame.draw.circle(screen, light_grey, center, 45)
 
 
 #start the display
