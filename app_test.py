@@ -1,6 +1,95 @@
 import pygame
 import math
 import random
+from pygame.locals import *
+
+#initialize the constructor 
+pygame.init() 
+  
+#initialize screen
+res = (1920,1080) 
+screen = pygame.display.set_mode(res)
+clock = pygame.time.Clock()
+
+#initialize colours
+white = (255,255,255) 
+black = (0,0,0)
+light_grey = (211,224,227)
+blue = (94,184,204)
+green = (94,204,118)
+purple = (151,94,204)
+pink = (204,94,200)
+orange = (204,141,73)
+yellow = (204,193,73)
+line_color = (255, 50, 50)
+
+#initialize dimensions
+screen_width = screen.get_width() 
+screen_height = screen.get_height()
+
+#initialize text
+smallfont = pygame.font.SysFont('Corbel',20)
+middlefont = pygame.font.SysFont('Corbel',50)
+bigfont = pygame.font.SysFont('Corbel',100)
+text_exit = smallfont.render('Exit' , True , black)
+text_game_choice=middlefont.render('Choose your game', True, black)
+text_solo = smallfont.render('Solo' , True , black)
+text_multiplayer = smallfont.render('Multiplayer', True, black)
+title = bigfont.render('Triv-IA-pursuite', True, black)
+LEFT = 1
+
+
+def menu():
+    screen.blit(title, (screen_width/2, screen_height/2-500))
+    screen.blit(text_game_choice, (screen_width/2+500, screen_height/2))
+    screen.blit(text_solo, (screen_width/2+500, screen_height/2+50))
+    screen.blit(text_multiplayer, (screen_width/2+500, screen_height/2+100))
+
+    perso = pygame.image.load("media/jeton.png").convert_alpha()
+    
+
+
+
+
+
+#Start the graphic display and the simulation
+while True:
+    screen.fill(white)
+    menu()
+    perso = pygame.image.load("media/jeton.png").convert_alpha()
+    persoRect = perso.get_rect()
+    persoRect.topleft = (270,380)
+    for ev in pygame.event.get(): 
+        if ev.type == pygame.QUIT: 
+            pygame.quit()     
+
+        if ev.type == KEYDOWN  :
+            if ev.key == K_LEFT :
+                if persoRect.left>=10 :
+                    persoRect = persoRect.move(-10,0)
+            if ev.key == K_RIGHT :
+                if persoRect.right<=630 :
+                    persoRect = persoRect.move(10,0)
+        # #check if a mouse is clicked
+        # if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT:
+            # select multiplayer game
+            # if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
+    screen.blit(perso, persoRect)
+    pygame.display.update()
+
+    #store the (x,y) coordinates into the variable as a tuple 
+    mouse = pygame.mouse.get_pos()
+
+
+    pygame.display.flip()
+
+
+#########################################################################"
+# 
+# 
+# import pygame
+import math
+import random
 import time
 from src.game import Game
 from lanceDe import lancer_de
@@ -162,3 +251,7 @@ while True:
     pygame.display.flip()
 
 
+"
+
+
+    
