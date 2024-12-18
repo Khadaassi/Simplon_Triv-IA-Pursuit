@@ -4,6 +4,8 @@ import random
 from src.game import Game
 from src.player import Player
 from src.dice import rolling_dice
+import json
+
 
 #initialize the constructor 
 pygame.init() 
@@ -60,6 +62,7 @@ theme4 = smallfont.render("Bases de données", True, black)
 theme5 = smallfont.render("Langages de programmation", True, black)
 theme6 = smallfont.render("AGIL", True, black)
 theme7 = smallfont.render("DevOps", True, black)
+
 LEFT = 1
 
 # center positions
@@ -151,7 +154,58 @@ def pursuit_board():
     screen.blit(theme5, (screen_width/2+580, screen_height/2 +290))
     screen.blit(theme6, (screen_width/2+580, screen_height/2 +340))
 
-            
+# Function 1
+def get_case_category(position,cases):
+    cat = cases[position]
+    return cat
+
+def draw_question(cat):
+
+    with open("questions.JSON", 'r', encoding='utf-8') as file:
+            data = json.load(file)
+    questions = data[cat]
+    question_dict = random.choice(questions)
+    question = question_dict['question']
+    choice = question_dict['choix']
+    answers = question_dict['reponse']
+
+    display_question = smallfont.render(question, True, black)
+    screen.blit(display_question, (screen_width/2+210, screen_height/2 - 130))
+
+    
+    return question, choice, answers
+
+    # # Récupérer les questions de la catégorie
+    # questions = data['categories'][category]
+
+    # # Tirer une question au hasard
+    # question = random.choice(questions)
+    # return question
+
+
+
+
+# def draw_question(position): 
+#     """ Using the player position, draw a question on a given topic"""
+#     question = Game.get_question_by_category(position)
+
+#     with open("questions.json", 'r', encoding='utf-8') as file:
+#             data = json.load(file)
+
+#     # Récuperer la catégorie sur laquelle est le pion
+#     #comparaison coordonnees pion / circles
+#     category = 
+    
+
+#     # Récupérer les questions de la catégorie
+#     questions = data['categories'][category]
+
+#     # Tirer une question au hasard
+#     question = random.choice(questions)
+#     return question
+
+
+
 def draw_player(position):
     """Draw the player's token at the current position."""
     angle = (2 * math.pi / len(cases)) * position
@@ -184,6 +238,14 @@ def main():
         draw_board()
         pursuit_board()
         draw_player(player_position)
+        cat = get_case_category(player_position,cases)
+        question, choices, answer = draw_question(cat)
+
+    
+        # print(question)
+        # print(choices)
+        # print(answer)
+
 
         # Draw the dice button
         pygame.draw.rect(screen, light_grey, [screen_width - 200, screen_height / 2, 140, 40])
