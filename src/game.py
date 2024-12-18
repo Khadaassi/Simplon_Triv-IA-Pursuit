@@ -18,7 +18,7 @@ class Game():
         self.questions = self.load_questions()
 
     def load_questions(self):
-        with open('data/questions.json', 'r') as file:
+        with open('data_questions.json', 'r') as file:
             return json.load(file)
         
     def create_board(self):
