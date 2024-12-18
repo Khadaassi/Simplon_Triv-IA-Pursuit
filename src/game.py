@@ -49,10 +49,11 @@ class Game():
         player = self.players[self.current_player_idx]
         roll = rolling_dice()
         print(f"{RESET}{player.name} lances le dé et obtiens {roll}")
+            
+        direction = input("Vers où souhaitez vous vous déplacer ( < ou >)?")
         if current_category == self.categories_per_quarter[1]:
             rolling_dice()
-            pass
-        direction = input("Vers où souhaitez vous vous déplacer ( < ou >)?")
+    
         player.move(roll, len(self.board), direction)
         current_category = self.board[player.position]
         print(f"{player.name} se trouve sur la case {player.position + 1} {BOLD}{BLUE}(Catégorie: {current_category})")
