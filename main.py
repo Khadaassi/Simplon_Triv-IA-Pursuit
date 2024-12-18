@@ -9,9 +9,10 @@ RESET = "\033[0m"
 BLUE = "\033[34m"
 
 def main():
-    player1 = Player("Tu")
+    player1 = Player("Antoine")
+    player2 = Player("Ludivine")
     
-    game = Game([player1])
+    game = Game([player1, player2])
     
     num_turns = 10
     
