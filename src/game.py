@@ -17,12 +17,12 @@ class Game():
         self.current_player_idx = 0
         self.questions = self.load_questions()
         self.categories_per_quarter = [
-    ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
-    ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
-    ["DevOps", "Agile", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
-    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
-    ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
-    ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
+    ["Bases de données", "Dice", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
+    ["DevOps", "Dice", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
+    ["DevOps", "Dice", "Agile", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
+    ["Bases de données", "Dice", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+    ["Actualités IA", "Dice", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
+    ["Ligne de commandes", "Dice", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
 ]
 
     def load_questions(self):
@@ -49,6 +49,9 @@ class Game():
         player = self.players[self.current_player_idx]
         roll = rolling_dice()
         print(f"{RESET}{player.name} lances le dé et obtiens {roll}")
+        if current_category == self.categories_per_quarter[1]:
+            rolling_dice()
+            pass
         direction = input("Vers où souhaitez vous vous déplacer ( < ou >)?")
         player.move(roll, len(self.board), direction)
         current_category = self.board[player.position]
