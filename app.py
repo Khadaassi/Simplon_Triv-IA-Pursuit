@@ -2,6 +2,7 @@ import pygame
 import math
 import random
 from src.game import Game
+from src.player import Player
 
 #initialize the constructor 
 pygame.init() 
@@ -49,6 +50,7 @@ def pursuit_board():
     radius_200 = 160
     radius_250 = 100
     
+    player1= Player("toto")
     game = Game(36)
     cases= Game.create_board(game)
 
