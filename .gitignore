@@ -2,8 +2,6 @@
 
 .vscode
 
-*.json
-
 DS.store
 
 __pycache__
