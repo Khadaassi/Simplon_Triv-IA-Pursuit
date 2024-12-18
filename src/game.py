@@ -9,6 +9,15 @@ class Game():
         self.board = self.create_board()
         self.current_player_idx = 0
         self.questions = self.load_questions()
+        self.current_question = 0
+        self.categories_per_quarter = [
+    "Bases de données", "Dice","Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", ['AGIL', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Ligne de commandes", "Dice", "Actualités IA", "DevOps", "AGIL", "Bases de données", ['Langages de programmation', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'AGIL'],
+    "Actualités IA", "Dice", "DevOps", "AGIL", "Bases de données", "Langages de programmation", ['Ligne de commandes', 'Actualités IA', 'DevOps', 'AGIL', 'Bases de données', 'Langages de programmation'],
+    "DevOps", "Dice", "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", ['Actualités IA', 'AGIL', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "AGIL", "Dice", "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", ['DevOps', 'Actualités IA', 'AGIL', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Langages de programmation", "Dice", "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", ['Bases de données', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'AGIL', 'Langages de programmation']
+]
 
     def load_questions(self):
         with open('data/questions.json', 'r') as file:
@@ -16,21 +25,22 @@ class Game():
         
     def create_board(self):
         categories_per_quarter = [
-    "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", ['AGIL', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", "Bases de données", ['Langages de programmation', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'AGIL'],
-    "Actualités IA", "DevOps", "AGIL", "Bases de données", "Langages de programmation", ['Ligne de commandes', 'Actualités IA', 'DevOps', 'AGIL', 'Bases de données', 'Langages de programmation'],
-    "DevOps", "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", ['Actualités IA', 'AGIL', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", ['DevOps', 'Actualités IA', 'AGIL', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
-    "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", ['Bases de données', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'AGIL', 'Langages de programmation']
+    "Bases de données", "Dice","Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", ['AGIL', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Ligne de commandes", "Dice", "Actualités IA", "DevOps", "AGIL", "Bases de données", ['Langages de programmation', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'Bases de données', 'AGIL'],
+    "Actualités IA", "Dice", "DevOps", "AGIL", "Bases de données", "Langages de programmation", ['Ligne de commandes', 'Actualités IA', 'DevOps', 'AGIL', 'Bases de données', 'Langages de programmation'],
+    "DevOps", "Dice", "AGIL", "Bases de données", "Langages de programmation", "Ligne de commandes", ['Actualités IA', 'AGIL', 'DevOps', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "AGIL", "Dice", "Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", ['DevOps', 'Actualités IA', 'AGIL', 'Ligne de commandes', 'Bases de données', 'Langages de programmation'],
+    "Langages de programmation", "Dice", "Ligne de commandes", "Actualités IA", "DevOps", "AGIL", ['Bases de données', 'Actualités IA', 'DevOps', 'Ligne de commandes', 'AGIL', 'Langages de programmation']
 ]
         plateau = []
         for i in range(6):
             plateau.extend(categories_per_quarter[i])
         return plateau
     
-
+    
     def get_question_by_category(self, category):
         questions = self.load_questions()
+        self.current_question += 1
         if category in questions:
             category_questions = questions[category]
             if category_questions:
@@ -40,12 +50,12 @@ class Game():
 
     current_category = 0
 
-    def play_turn(self):
-        player = self.players[self.current_player_idx]
-        roll = rolling_dice()
-        print(f"{player.name} lance le dé et obtient {roll}")
-        player.move(roll, len(self.board))
-        current_category = self.board[player.position]
+def play_turn(self):
+    player = self.players[self.current_player_idx]
+    roll = rolling_dice()
+    print(f"{player.name} lance le dé et obtient {roll}")
+    player.move(roll, len(self.board))
+    current_category = self.board[player.position]
 
     sum_of_count_by_theme = sum(player.score_by_theme.values())
     
