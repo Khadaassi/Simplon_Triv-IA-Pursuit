@@ -18,6 +18,7 @@ fps = pygame.time.Clock()
 white = (255,255,255) 
 black = (0,0,0)
 light_grey = (211,224,227)
+very_light_grey = (240, 243, 247)
 dark_grey =(184, 178, 178)
 blue = (94,184,204)
 green = (94,204,118)
@@ -32,11 +33,13 @@ purple_light = (197, 166, 227)
 pink_light = (227, 166, 225)
 orange_light = (217, 184, 150)
 yellow_light = (217, 210, 132)
+
 #initialize dimensions
 screen_width = screen.get_width() 
 screen_height = screen.get_height()
 
 #initialize text
+xsfont = pygame.font.SysFont('Corbel',20)
 smallfont = pygame.font.SysFont('Corbel',35)
 middlefont = pygame.font.SysFont('Corbel',100)
 bigfont = pygame.font.SysFont('Corbel',200)
@@ -48,6 +51,11 @@ text_dice = smallfont.render('Dice', True, black)
 title = bigfont.render('Triv-IA-pursuit', True, black)
 sub_title=middlefont.render('Triv-IA-pursuit', True, black)
 screen.blit(title, (screen_width/2-100, screen_height/2))
+text_forward = smallfont.render('Forward', True, black)
+clockwise= xsfont.render('(Clockwise)', True, black)
+text_backward = smallfont.render('Backward ', True, black)
+counterclockewise = xsfont.render('(Counterclockwise)', True, black)
+
 LEFT = 1
 
 # center positions
@@ -69,6 +77,7 @@ def draw_board():
     screen.fill(white)
     pygame.draw.circle(screen, dark_grey, center, 60)
     pygame.draw.circle(screen, light_grey, center, 58)
+    pygame.draw.rect(screen, very_light_grey, [screen_width - 400, screen_height -1000, 350, 250])
     screen.blit(sub_title, (screen_width/2-100, screen_height/2-500))
 
 
@@ -123,8 +132,42 @@ def draw_player(position):
     y = center[1] + int(radius * math.sin(angle))
     screen.blit(star, (x - 15, y - 15))
 
+def draw_buttons():
+    """Draw directional buttons"""
+    pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height-880, 140, 40])  # Bouton Avancer
+    pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height-830, 140, 40])  # Bouton Reculer
+
+    screen.blit(text_forward, (screen_width - 290, screen_height-875))
+    screen.blit(clockwise, (screen_width - 290, screen_height-855))
+    screen.blit(text_backward, (screen_width - 290, screen_height-830))
+    screen.blit(counterclockewise, (screen_width - 290, screen_height-810))
+
+
+def dice_result(move_path):
+    texte = f"Result : {move_path}"
+    move_number = smallfont.render(texte, True, black)
+    screen.blit(move_number, (screen_width - 300, screen_height -920))
+
+#
+#  def move(move_path, direction, cases):
+#     if direction == ">":
+#         player_position = (player_position + move_path) % len(cases)
+#     if direction == "<":
+#             player_position = (player_position + move_path) % len(cases)
+#     return player_position
+
+#def get_question_by_category(self, category) Game.get_question_by_category(category)
+
+def get_category(position):
+    category = cases[position]["category"]
+    return category
+
+
 def main():
     global player_position
+    #direction = None
+    move_path = None
+
 
     running = True
     while running:
@@ -134,24 +177,33 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse = pygame.mouse.get_pos()
-                if screen_width - 200 <= mouse[0] <= screen_width - 60 and screen_height / 2 <= mouse[1] <= screen_height / 2 + 40:
+                if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height-980 <= mouse[1] <= screen_height-940:
                     # Roll dice and update position
                     move_path = rolling_dice()
-                    last_dice_result = move_path
-                    # move_number = smallfont.render(f"Resultat : {move_path}", True, black)
-                    # screen.blit(move_number, (screen_width-200,screen_height/2+50,140,40))
-                    #player_position1 = (player_position - move_path) % len(cases)
+                    
+                if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
                     player_position = (player_position + move_path) % len(cases)
-                
+                if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
+                    player_position = (player_position - move_path) % len(cases)
+
 
         # Draw the board and the player
         draw_board()
         pursuit_board()
+        
         draw_player(player_position)
+        
+         # Afficher le score du dé
+        if move_path is not None:
+            dice_result(move_path)
 
+        # Dessiner les boutons de direction
+        if move_path is not None:
+            draw_buttons()
+        print(get_category(player_position))
         # Draw the dice button
-        pygame.draw.rect(screen, light_grey, [screen_width - 200, screen_height / 2, 140, 40])
-        screen.blit(text_dice, (screen_width - 150, screen_height / 2 + 10))
+        pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height -980, 140, 40])
+        screen.blit(text_dice, (screen_width -250, screen_height -980 + 10))
 
         # Print the last result of dice to the player
         # if last_dice_result is not None:
@@ -168,62 +220,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-#     #store the x,y position of the mouse position
-#     mouse = pygame.mouse.get_pos() 
-#     #create buttons with text on them and change colour if mouse hovers over them
-#     pygame.draw.rect(screen, light_grey,[screen_width-200,screen_height/2,140,40]) 
-#     screen.blit(text_dice, (screen_width-150,screen_height/2+10,140,40))
-
-#     if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
-#             pygame.draw.rect(screen,dark_grey,[screen_width-200,screen_height/2,140,40])
-#             screen.blit(text_dice , (screen_width-150,screen_height/2+10,140,40))
-#     #         # move_path = rolling_dice()
-#             # move_number = smallfont.render(f"Resultat : {move_path}", True, black)
-#             # screen.blit(move_number, (screen_width-200,screen_height/2+50,140,40))
-
-#     for ev in pygame.event.get():
-#         if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT:
-#             if ev.type == pygame.QUIT:
-#                 pygame.quit()
-
-#             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
-#                 # pygame.draw.rect(screen,dark_grey,[screen_width-200,screen_height/2,140,40])
-#                 # screen.blit(text_dice , (screen_width-150,screen_height/2+10,140,40))
-#                 move_path = rolling_dice()
-#                 move_number = smallfont.render(f"Result : {move_path}", True, black)
-#                 screen.blit(move_number, (screen_width-200,screen_height/2+50,140,40))
-#                 i = i+move_path
-#                 angle = (2 * math.pi / len(cases)) * i
-#                 x = center[0] + int(radius * math.cos(angle))
-#                 y = center[1] + int(radius * math.sin(angle))
-#                 star = pygame.image.load("media/Stars_mario.png")
-#                 star = pygame.transform.scale(star, (30,30))
-#                 screen.blit(star, (x-15,y-15))
-#     pygame.display.update()
-#     fps.tick(10)
-
-# #Ce bloc ci permet d'afficher le pion dans la case, plus on augmente le pion, plus ca va loin dans le cercle
-
-# # if i == 3:
-# #     star = pygame.image.load("media/Stars_mario.png")
-# #     star = pygame.transform.scale(star, (30,30))
-# #     screen.blit(star, (x-15,y-15)
-
-# #start the display
-# while True:
-#     for ev in pygame.event.get():
-#         if ev.type == pygame.QUIT:
-#             pygame.quit()
-#      #store the (x,y) coordinates into the variable as a tuple 
-#     mouse = pygame.mouse.get_pos() 
-#     #create buttons with text on them and change colour if mouse hovers over them
-#     pygame.draw.rect(screen, light_grey,[screen_width-200,screen_height/2,140,40]) 
-
-#     screen.fill(white)
-#     pursuit_board()
-    
-#     pygame.display.flip()
-
-
-# #il faut créer un bouton pour lancer le dé
-# #le joueur lance, on récupère le dé et on fait avancer le pion grâce au roulage de dé.
