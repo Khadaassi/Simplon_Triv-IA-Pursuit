@@ -2,21 +2,21 @@ from src.game import Game
 from src.player import Player
 
 def main():
-    player1 = Player("A")
+    print("Bienvenue au Trivial Pursuit !")
+    print("Entrez les noms des joueurs séparés par '-'")
+    player_names = input().strip().split("-")
     
-    game = Game([player1])
+    players = [Player(name.strip()) for name in player_names if name.strip()]
     
-    num_turns = 10
+    game = Game(players)
     
-    print("            Le jeu commence !")
-    print("-"* 50)
+    print("Le jeu commence !")
+    print("-" * 50)
 
-    for turn in range(num_turns):
-        print(f"--- Tour {turn + 1} ---")
-        game.play_turn() 
-        print("-" * 50)
-    
-    print("Le jeu est terminé !")
+    while True:
+        print(f"Tour du joueur {game.players[game.current_player_idx].name}  ")
+        game.play_turn()
+        print("-" * 50)  
 
 if __name__ == "__main__":
     main()
