@@ -48,6 +48,18 @@ text_dice = smallfont.render('Dice', True, black)
 title = bigfont.render('Triv-IA-pursuit', True, black)
 sub_title=middlefont.render('Triv-IA-pursuit', True, black)
 screen.blit(title, (screen_width/2-100, screen_height/2))
+scoring = smallfont.render('Scoring', True, black)
+rect = pygame.Rect(100, 100, 200, 150)
+player_name = smallfont.render('Player : ', True, black)
+score = smallfont.render('score : ', True, black)
+legend = smallfont.render('Legend : ', True, black)
+theme1 = smallfont.render("Actualités IA", True, black)
+theme2 = smallfont.render("DevOps", True, black)
+theme3 = smallfont.render("Ligne de commandes", True, black)
+theme4 = smallfont.render("Bases de données", True, black)
+theme5 = smallfont.render("Langages de programmation", True, black)
+theme6 = smallfont.render("AGIL", True, black)
+theme7 = smallfont.render("DevOps", True, black)
 LEFT = 1
 
 # center positions
@@ -115,6 +127,30 @@ def pursuit_board():
             x5 = center[0] + int(radius_50 * math.cos(angle))
             y5 = center[1] + int(radius_50 * math.sin(angle))
             pygame.draw.circle(screen, light_grey, (x5, y5), 20)
+    
+    screen.blit(scoring, (screen_width/2+450, screen_height/2 - 250))
+    pygame.draw.rect(screen, black, [1140, 340, 620, 320])
+    pygame.draw.rect(screen, light_grey, [1150, 350, 600, 300])
+
+    screen.blit(player_name, (screen_width/2+210, screen_height/2 - 180))
+    screen.blit(score, (screen_width/2+210, screen_height/2 - 160))
+
+    screen.blit(legend, (screen_width/2+180, screen_height/2 +200))
+    pygame.draw.circle(screen, blue, (screen_width/2+180, screen_height/2 +250), 20)
+    pygame.draw.circle(screen, green, (screen_width/2+180, screen_height/2 +300), 20)
+    pygame.draw.circle(screen, pink, (screen_width/2+180, screen_height/2 +350), 20)
+    pygame.draw.circle(screen, orange, (screen_width/2+550, screen_height/2 +250), 20)
+    pygame.draw.circle(screen, yellow, (screen_width/2+550, screen_height/2 +300), 20)
+    pygame.draw.circle(screen, purple, (screen_width/2+550, screen_height/2 +350), 20)
+
+
+    screen.blit(theme1, (screen_width/2+210, screen_height/2 +240))
+    screen.blit(theme2, (screen_width/2+210, screen_height/2 +290))
+    screen.blit(theme3, (screen_width/2+210, screen_height/2 +340))
+    screen.blit(theme4, (screen_width/2+580, screen_height/2 +240))
+    screen.blit(theme5, (screen_width/2+580, screen_height/2 +290))
+    screen.blit(theme6, (screen_width/2+580, screen_height/2 +340))
+
             
 def draw_player(position):
     """Draw the player's token at the current position."""
