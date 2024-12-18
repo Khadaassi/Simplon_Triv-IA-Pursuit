@@ -6,6 +6,10 @@ class Player():
         self.count_by_theme = 0
         self.score_by_theme =  {"Bases de données":0,"Langages de programmation":0,"Ligne de commandes":0, "Actualités IA":0,"DevOps":0,"Agile":0}
 
+    @property
+    def final_score(self):
+        return sum(self.score_by_theme.values())
+    
     def move(self, steps, board_size, direction):
         if direction == ">":
             self.position = (self.position + steps) % board_size
@@ -15,4 +19,3 @@ class Player():
     def count_score(self):
         self.score += 1
         return self.score
-    

@@ -2,10 +2,8 @@ from src.game import Game
 from src.player import Player
 import time
 
-RED = "\033[91m"
-GREEN = "\033[92m"
+
 YELLOW = "\033[93m"
-RESET = "\033[0m"
 BLUE = "\033[34m"
 
 def main():
@@ -25,7 +23,7 @@ def main():
         time.sleep(2)
         print(f"{YELLOW}-"* 50)
     
-    print(f"{YELLOW}Le jeu est terminé !")
+    print(f"{YELLOW}Le jeu est terminé !\n")
 
 if __name__ == "__main__":
     main()
