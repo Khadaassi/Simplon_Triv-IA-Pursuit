@@ -2,6 +2,7 @@ import json, random
 from src.player import Player
 from src.dice import rolling_dice
 
+
 class Game():
 
     def __init__(self, players):
@@ -9,6 +10,7 @@ class Game():
         self.board = self.create_board()
         self.current_player_idx = 0
         self.questions = self.load_questions()
+        self.current_player= Player()
 
     def load_questions(self):
         with open('data/questions.json', 'r') as file:
@@ -47,12 +49,9 @@ class Game():
         player.move(roll, len(self.board))
         current_category = self.board[player.position]
 
-    sum_of_count_by_theme = sum(player.score_by_theme.values())
-    
-
-    if player.sum_of_count_by_theme == 6 :
+        if player.sum_of_count_by_theme == 6 :
         
-        print(f"{player.name} se trouve sur la case {player.position + 1} (Catégorie: {current_category})")
+            print(f"{player.name} se trouve sur la case {player.position + 1} (Catégorie: {current_category})")
 
         question_data = self.get_question_by_category(current_category)
         if question_data:
@@ -62,6 +61,8 @@ class Game():
                 print(f"{i}. {choix}")
             
             scoreByTheme = player.score_by_theme[current_category] + 1
+
+            player_answer = input("Your answer")
 
             if player_answer.strip().lower() == question_data['reponse'].lower():
                 print("Bonne réponse !")
