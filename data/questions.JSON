@@ -1,195 +1,194 @@
 {
-    "Bases de données": [
-      {
-        "question": "Qu'est-ce qu'une base de données relationnelle ?",
-        "choix": [
-          "1. Une collection de données sans structure",
-          "2. Un ensemble de tables reliées entre elles",
-          "3. Une base de données avec uniquement des graphiques",
-          "4. Une base de données en temps réel"
-        ],
-        "reponse": ["Un ensemble de tables reliées entre elles", 1]
-      },
-      {
-        "question": "Quel langage est utilisé pour interagir avec les bases de données ?",
-        "choix": [
-          "HTML",
-          "SQL",
-          "Python",
-          "C++"
-        ],
-        "reponse": "SQL"
-      },
-      {
-        "question": "Quelle commande SQL permet de récupérer des données ?",
-        "choix": [
-          "INSERT",
-          "DELETE",
-          "SELECT",
-          "UPDATE"
-        ],
-        "reponse": "SELECT"
-      },
-      {
-        "question": "Quel est un système de gestion de bases de données populaire ?",
-        "choix": [
-          "MySQL",
-          "Apache",
-          "React",
-          "Flask"
-        ],
-        "reponse": "MySQL"
-      },
-      {
-        "question": "Qu'est-ce qu'une clé primaire ?",
-        "choix": [
-          "Une contrainte pour assurer l'unicité des lignes",
-          "Un champ pouvant contenir des valeurs nulles",
-          "Un index pour accélérer les requêtes",
-          "Une colonne utilisée pour les relations"
-        ],
-        "reponse": "Une contrainte pour assurer l'unicité des lignes"
-      }
-    ],
-    "Langages de programmation": [
-      {
-        "question": "Quel langage est souvent enseigné pour débuter ?",
-        "choix": [
-          "Python",
-          "JavaScript",
-          "C",
-          "Rust"
-        ],
-        "reponse": "Python"
-      },
-      {
-        "question": "Quel langage est utilisé pour les applications Android ?",
-        "choix": [
-          "C#",
-          "Kotlin",
-          "Ruby",
-          "Swift"
-        ],
-        "reponse": "Kotlin"
-      },
-      {
-        "question": "Quel langage est connu pour son utilisation scientifique ?",
-        "choix": [
-          "Python",
-          "Java",
-          "PHP",
-          "Go"
-        ],
-        "reponse": "Python"
-      },
-      {
-        "question": "Quel langage est utilisé principalement pour le développement web front-end ?",
-        "choix": [
-          "Python",
-          "JavaScript",
-          "Ruby",
-          "SQL"
-        ],
-        "reponse": "JavaScript"
-      }
-    ],
-    "Ligne de commandes": [
-      {
-        "question": "Que fait la commande 'ls' en Unix ?",
-        "choix": [
-          "Affiche la liste des fichiers",
-          "Affiche les détails de l'utilisateur",
-          "Liste les processus en cours",
-          "Ferme le terminal"
-        ],
-        "reponse": "Affiche la liste des fichiers"
-      },
-      {
-        "question": "Comment changer de répertoire en ligne de commande ?",
-        "choix": [
-          "ls",
-          "cd",
-          "pwd",
-          "mkdir"
-        ],
-        "reponse": "cd"
-      }
-    ],
-    "Actualités IA": [
-      {
-        "question": "Qu'est-ce que GPT-4 ?",
-        "choix": [
-          "Un modèle de langage développé par OpenAI",
-          "Un robot de conversation",
-          "Un nouveau langage de programmation",
-          "Un outil de création de contenu visuel"
-        ],
-        "reponse": "Un modèle de langage développé par OpenAI"
-      },
-      {
-        "question": "Qu'est-ce qu'un modèle de machine learning supervisé ?",
-        "choix": [
-          "Un modèle qui apprend avec des données étiquetées",
-          "Un modèle qui s'auto-améliore",
-          "Un modèle sans données d'entrée",
-          "Un modèle pour la reconnaissance d'images"
-        ],
-        "reponse": "Un modèle qui apprend avec des données étiquetées"
-      }
-    ],
-    "DevOps": [
-      {
-        "question": "Qu'est-ce que Git ?",
-        "choix": [
-          "Un système de gestion de version décentralisé",
-          "Un serveur de base de données",
-          "Un outil d'automatisation de tests",
-          "Un langage de programmation"
-        ],
-        "reponse": "Un système de gestion de version décentralisé"
-      },
-      {
-        "question": "Qu'est-ce que CI/CD ?",
-        "choix": [
-          "Continuous Integration / Continuous Delivery",
-          "Computer Integrated Development",
-          "Command Integration / Command Delivery",
-          "Cloud Infrastructure / Continuous Delivery"
-        ],
-        "reponse": "Continuous Integration / Continuous Delivery"
-      }
-    ],
-    "Agile": [
-      {
-        "question": "Qu'est-ce que la méthode Agile ?",
-        "choix": [
-          "Une méthode de gestion de projet linéaire",
-          "Une méthode qui encourage les changements rapides",
-          "Une méthode basée sur des documents détaillés",
-          "Une méthode de développement uniquement pour les grandes entreprises"
-        ],
-        "reponse": "Une méthode qui encourage les changements rapides"
-      },
-      {
-        "question": "Qu'est-ce que le Scrum dans Agile ?",
-        "choix": [
-          "Un type de réunion quotidienne",
-          "Un framework pour gérer des projets Agile",
-          "Une technique de gestion des tâches",
-          "Un type de programmation"
-        ],
-        "reponse": "Un framework pour gérer des projets Agile"
-      },
-      {
-        "question": "Quel est l'objectif principal de la méthode Agile ?",
-        "choix": [
-          "Réduire le nombre de réunions",
-          "Accélérer la livraison de valeur aux utilisateurs",
-          "Imposer une hiérarchie stricte",
-          "Garantir une documentation complète"
-        ],
-        "reponse": "Accélérer la livraison de valeur aux utilisateurs"
-      }
-    ]
-  }
-  
+  "Bases de données": [
+    {
+      "question": "Qu'est-ce qu'une base de données relationnelle ?",
+      "choix": [
+        "1. Une collection de données sans structure",
+        "2. Un ensemble de tables reliées entre elles",
+        "3. Une base de données avec uniquement des graphiques",
+        "4. Une base de données en temps réel"
+      ],
+      "reponse": ["Un ensemble de tables reliées entre elles", 1]
+    },
+    {
+      "question": "Quel langage est utilisé pour interagir avec les bases de données ?",
+      "choix": [
+        "1. HTML",
+        "2. SQL",
+        "3. Python",
+        "4. C++"
+      ],
+      "reponse": ["SQL", 2]
+    },
+    {
+      "question": "Quelle commande SQL permet de récupérer des données ?",
+      "choix": [
+        "1. INSERT",
+        "2. DELETE",
+        "3. SELECT",
+        "4. UPDATE"
+      ],
+      "reponse": ["SELECT", 3]
+    },
+    {
+      "question": "Quel est un système de gestion de bases de données populaire ?",
+      "choix": [
+        "1. MySQL",
+        "2. Apache",
+        "3. React",
+        "4. Flask"
+      ],
+      "reponse": ["MySQL", 1]
+    },
+    {
+      "question": "Qu'est-ce qu'une clé primaire ?",
+      "choix": [
+        "1. Une contrainte pour assurer l'unicité des lignes",
+        "2. Un champ pouvant contenir des valeurs nulles",
+        "3. Un index pour accélérer les requêtes",
+        "4. Une colonne utilisée pour les relations"
+      ],
+      "reponse": ["Une contrainte pour assurer l'unicité des lignes", 1]
+    }
+  ],
+  "Langages de programmation": [
+    {
+      "question": "Quel langage est souvent enseigné pour débuter ?",
+      "choix": [
+        "1. Python",
+        "2. JavaScript",
+        "3. C",
+        "4. Rust"
+      ],
+      "reponse": ["Python", 1]
+    },
+    {
+      "question": "Quel langage est utilisé pour les applications Android ?",
+      "choix": [
+        "1. C#",
+        "2. Kotlin",
+        "3. Ruby",
+        "4. Swift"
+      ],
+      "reponse": ["Kotlin", 2]
+    },
+    {
+      "question": "Quel langage est connu pour son utilisation scientifique ?",
+      "choix": [
+        "1. Python",
+        "2. Java",
+        "3. PHP",
+        "4. Go"
+      ],
+      "reponse": ["Python", 1]
+    },
+    {
+      "question": "Quel langage est utilisé principalement pour le développement web front-end ?",
+      "choix": [
+        "1. Python",
+        "2. JavaScript",
+        "3. Ruby",
+        "4. SQL"
+      ],
+      "reponse": ["JavaScript", 2]
+    }
+  ],
+  "Ligne de commandes": [
+    {
+      "question": "Que fait la commande 'ls' en Unix ?",
+      "choix": [
+        "1. Affiche la liste des fichiers",
+        "2. Affiche les détails de l'utilisateur",
+        "3. Liste les processus en cours",
+        "4. Ferme le terminal"
+      ],
+      "reponse": ["Affiche la liste des fichiers", 1]
+    },
+    {
+      "question": "Comment changer de répertoire en ligne de commande ?",
+      "choix": [
+        "1. ls",
+        "2. cd",
+        "3. pwd",
+        "4. mkdir"
+      ],
+      "reponse": ["cd", 2]
+    }
+  ],
+  "Actualités IA": [
+    {
+      "question": "Qu'est-ce que GPT-4 ?",
+      "choix": [
+        "1. Un modèle de langage développé par OpenAI",
+        "2. Un robot de conversation",
+        "3. Un nouveau langage de programmation",
+        "4. Un outil de création de contenu visuel"
+      ],
+      "reponse": ["Un modèle de langage développé par OpenAI", 1]
+    },
+    {
+      "question": "Qu'est-ce qu'un modèle de machine learning supervisé ?",
+      "choix": [
+        "1. Un modèle qui apprend avec des données étiquetées",
+        "2. Un modèle qui s'auto-améliore",
+        "3. Un modèle sans données d'entrée",
+        "4. Un modèle pour la reconnaissance d'images"
+      ],
+      "reponse": ["Un modèle qui apprend avec des données étiquetées", 1]
+    }
+  ],
+  "DevOps": [
+    {
+      "question": "Qu'est-ce que Git ?",
+      "choix": [
+        "1. Un système de gestion de version décentralisé",
+        "2. Un serveur de base de données",
+        "3. Un outil d'automatisation de tests",
+        "4. Un langage de programmation"
+      ],
+      "reponse": ["Un système de gestion de version décentralisé", 1]
+    },
+    {
+      "question": "Qu'est-ce que CI/CD ?",
+      "choix": [
+        "1. Continuous Integration / Continuous Delivery",
+        "2. Computer Integrated Development",
+        "3. Command Integration / Command Delivery",
+        "4. Cloud Infrastructure / Continuous Delivery"
+      ],
+      "reponse": ["Continuous Integration / Continuous Delivery", 1]
+    }
+  ],
+  "Agile": [
+    {
+      "question": "Qu'est-ce que la méthode Agile ?",
+      "choix": [
+        "1. Une méthode de gestion de projet linéaire",
+        "2. Une méthode qui encourage les changements rapides",
+        "3. Une méthode basée sur des documents détaillés",
+        "4. Une méthode de développement uniquement pour les grandes entreprises"
+      ],
+      "reponse": ["Une méthode qui encourage les changements rapides", 2]
+    },
+    {
+      "question": "Qu'est-ce que le Scrum dans Agile ?",
+      "choix": [
+        "1. Un type de réunion quotidienne",
+        "2. Un framework pour gérer des projets Agile",
+        "3. Une technique de gestion des tâches",
+        "4. Un type de programmation"
+      ],
+      "reponse": ["Un framework pour gérer des projets Agile", 2]
+    },
+    {
+      "question": "Quel est l'objectif principal de la méthode Agile ?",
+      "choix": [
+        "1. Réduire le nombre de réunions",
+        "2. Accélérer la livraison de valeur aux utilisateurs",
+        "3. Imposer une hiérarchie stricte",
+        "4. Garantir une documentation complète"
+      ],
+      "reponse": ["Accélérer la livraison de valeur aux utilisateurs", 2]
+    }
+  ]
+}
