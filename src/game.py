@@ -35,9 +35,10 @@ class Game():
             board.extend(self.categories_per_quarter[i])
         return board
     
-
+    
     def get_question_by_category(self, category):
         questions = self.load_questions()
+        self.current_question += 1
         if category in questions:
             category_questions = questions[category]
             if category_questions:
