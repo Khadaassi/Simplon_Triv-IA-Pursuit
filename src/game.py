@@ -18,7 +18,7 @@ class Game():
         self.questions = self.load_questions()
 
     def load_questions(self):
-        with open('media/data_questions.json', 'r') as file:
+        with open('media/questions.JSON', 'r') as file:
             return json.load(file)
         
     def create_board(self):
@@ -52,7 +52,7 @@ class Game():
         direction = input("Vers où souhaitez vous vous déplacer ( < ou >)?")
         player.move(roll, len(self.board), direction)
         current_category = self.board[player.position]
-        print(f"{player.name} se trouve sur la case {player.position + 1} {BOLD}{BLUE}(Catégorie: {current_category})")
+        print(f"{player.name} te trouve sur la case {player.position + 1} {BOLD}{BLUE}(Catégorie: {current_category})")
         
         question_data = self.get_question_by_category(current_category)
         if question_data:
