@@ -13,17 +13,19 @@ class Game():
 
     def __init__(self, players):
         self.players = players
+        self.board = self.create_board()
         self.current_player_idx = 0
         self.categories_per_quarter = [
-            ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
-            ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
-            ["DevOps", "Agile", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
-            ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
-            ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
-            ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
+            ["Bases de données","Dice", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
+            ["DevOps","Dice", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
+            ["DevOps","Dice", "Agile", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
+            ["Bases de données","Dice", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+            ["Actualités IA","Dice", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
+            ["Ligne de commandes","Dice", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
             ]
         self.questions = self.load_questions()
-        self.board = self.create_board()
+        self.current_question = 0
+        
 
     def load_questions(self):
         with open('data/questions.json', 'r') as file:
