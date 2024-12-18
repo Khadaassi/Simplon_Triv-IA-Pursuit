@@ -16,24 +16,24 @@ class Game():
         self.board = self.create_board()
         self.current_player_idx = 0
         self.questions = self.load_questions()
+        self.categories_per_quarter = [
+    ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
+    ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
+    ["DevOps", "Agile", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
+    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+    ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
+    ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
+]
 
     def load_questions(self):
         with open('data/questions.json', 'r') as file:
             return json.load(file)
         
     def create_board(self):
-        categories_per_quarter = [
-    ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
-    ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
-    ["Agile", "DevOps", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
-    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
-    ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
-    ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
-]
-        plateau = []
+        board = []
         for i in range(6):
-            plateau.extend(categories_per_quarter[i])
-        return plateau
+            board.extend(self.categories_per_quarter[i])
+        return board
     
 
     def get_question_by_category(self, category):
@@ -63,19 +63,22 @@ class Game():
             
             player_answer = input(f"Votre réponse : ")
             time.sleep(1)
-            scoreByTheme = player.score_by_theme.get(current_category, 0)
+            score_by_categorie = player.score_by_theme.get(current_category, 0)
             if player_answer.strip().lower() == question_data['reponse'].lower():
                 print(f"{GREEN}Bonne réponse !")
-                score= player.count_score()
+                score_total = player.count_score()
 
-                if player.score_by_theme[current_category] < 1 :
-                    scoreByTheme  += 1
-                print(f"Score pour le thème {current_category} = {scoreByTheme}")
-                
-                print(f"Score = {score}")
+                for i, category_list in enumerate(self.categories_per_quarter):
+                    if category_list[0] == current_category:
+                        if player.score_by_theme[current_category] < 1 :
+                            score_by_categorie  += 1        
+
+                print(f"Score pour le thème {current_category} = {score_by_categorie}")
+                print(f"Score = {score_total}")
+    
             else:
                 print(f"{RED}Mauvaise réponse. La bonne réponse était : {question_data['reponse']}")
-                print(f"{GREEN}Score pour le thème {current_category} = {scoreByTheme}")
+                print(f"{GREEN}Score pour le thème {current_category} = {score_by_categorie}")
                 
         else:
             print("Aucune question disponible dans cette catégorie.")
