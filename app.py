@@ -4,6 +4,7 @@ import random
 from src.game import Game
 from src.player import Player
 from src.dice import rolling_dice
+import json
 
 #initialize the constructor 
 pygame.init() 
@@ -148,6 +149,26 @@ def dice_result(move_path):
     move_number = smallfont.render(texte, True, black)
     screen.blit(move_number, (screen_width - 300, screen_height -920))
 
+def get_case_category(position,cases):
+    cat = cases[position]
+    return cat
+
+def draw_question(cat):
+
+    with open("media/questions.JSON", 'r', encoding='utf-8') as file:
+            data = json.load(file)
+    questions = data[cat]
+    question_dict = random.choice(questions)
+    question = question_dict['question']
+    choice = question_dict['choix']
+    answers = question_dict['reponse']
+
+    display_question = smallfont.render(question, True, black)
+    screen.blit(display_question, (screen_width/2+210, screen_height/2 - 130))
+
+    
+    return question, choice #, answers
+
 #
 #  def move(move_path, direction, cases):
 #     if direction == ">":
@@ -156,19 +177,14 @@ def dice_result(move_path):
 #             player_position = (player_position + move_path) % len(cases)
 #     return player_position
 
-#def get_question_by_category(self, category) Game.get_question_by_category(category)
-
-def get_category(position):
-    category = cases[position]["category"]
-    return category
-
+current_question = None
+current_choices = None
 
 def main():
-    global player_position
-    #direction = None
+    global player_position, current_question, current_choices
+    direction = None
     move_path = None
-
-
+    
     running = True
     while running:
         for event in pygame.event.get():
@@ -180,13 +196,19 @@ def main():
                 if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height-980 <= mouse[1] <= screen_height-940:
                     # Roll dice and update position
                     move_path = rolling_dice()
-                    
-                if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
-                    player_position = (player_position + move_path) % len(cases)
-                if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
-                    player_position = (player_position - move_path) % len(cases)
+                    direction =None
+                    #current_question, current_choices = None, None
 
+                if move_path is not None:
+                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
+                        player_position = (player_position + move_path) % len(cases)
+                        direction = 1
+                        
 
+                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
+                        player_position = (player_position - move_path) % len(cases)
+                        direction = -1
+                        
         # Draw the board and the player
         draw_board()
         pursuit_board()
@@ -198,9 +220,18 @@ def main():
             dice_result(move_path)
 
         # Dessiner les boutons de direction
-        if move_path is not None:
+        if move_path is not None: #and not question_displayed:
             draw_buttons()
-        print(get_category(player_position))
+
+        if direction is not None and current_question is None:
+            cat = get_case_category(player_position,cases)
+            current_question, current_question=draw_question(cat)
+            direction =None
+        
+        if current_question is not None and current_choices is not None:
+            display_question = smallfont.render(current_question, True, black)
+            screen.blit(display_question, (screen_width / 2 + 210, screen_height / 2 - 130))
+            direction =None
         # Draw the dice button
         pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height -980, 140, 40])
         screen.blit(text_dice, (screen_width -250, screen_height -980 + 10))
@@ -212,7 +243,7 @@ def main():
         #     screen.blit(move_number, (screen_width - 200, screen_height / 2 + 50, 140, 40))
 
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(1)
 
     pygame.quit()
 
