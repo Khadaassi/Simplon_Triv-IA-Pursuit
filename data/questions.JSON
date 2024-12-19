@@ -49,6 +49,26 @@
         "4. Une colonne utilisée pour les relations"
       ],
       "reponse": ["Une contrainte pour assurer l'unicité des lignes", 1]
+    },
+    {
+      "question": "Qu'est-ce qu'une clé étrangère dans une base de données ?",
+      "choix": [
+        "1. Une clé unique pour chaque table",
+        "2. Une colonne qui établit une relation entre deux tables",
+        "3. Une clé qui permet de supprimer des lignes",
+        "4. Une clé utilisée pour les index"
+      ],
+      "reponse": ["Une colonne qui établit une relation entre deux tables", 2]
+    },
+    {
+      "question": "Quelle commande SQL est utilisée pour ajouter une nouvelle ligne dans une table ?",
+      "choix": [
+        "1. SELECT",
+        "2. INSERT",
+        "3. UPDATE",
+        "4. DELETE"
+      ],
+      "reponse": ["INSERT", 2]
     }
   ],
   "Langages de programmation": [
@@ -91,6 +111,36 @@
         "4. SQL"
       ],
       "reponse": ["JavaScript", 2]
+    },
+    {
+      "question": "Quel langage est principalement utilisé pour les scripts serveurs ?",
+      "choix": [
+        "1. PHP",
+        "2. CSS",
+        "3. HTML",
+        "4. MATLAB"
+      ],
+      "reponse": ["PHP", 1]
+    },
+    {
+      "question": "Quel langage est utilisé pour la programmation système ?",
+      "choix": [
+        "1. JavaScript",
+        "2. Python",
+        "3. C",
+        "4. Ruby"
+      ],
+      "reponse": ["C", 3]
+    },
+    {
+      "question": "Quel langage est principalement utilisé pour le développement iOS ?",
+      "choix": [
+        "1. Kotlin",
+        "2. Java",
+        "3. Swift",
+        "4. Dart"
+      ],
+      "reponse": ["Swift", 3]
     }
   ],
   "Ligne de commandes": [
@@ -113,82 +163,56 @@
         "4. mkdir"
       ],
       "reponse": ["cd", 2]
-    }
-  ],
-  "Actualités IA": [
-    {
-      "question": "Qu'est-ce que GPT-4 ?",
-      "choix": [
-        "1. Un modèle de langage développé par OpenAI",
-        "2. Un robot de conversation",
-        "3. Un nouveau langage de programmation",
-        "4. Un outil de création de contenu visuel"
-      ],
-      "reponse": ["Un modèle de langage développé par OpenAI", 1]
     },
     {
-      "question": "Qu'est-ce qu'un modèle de machine learning supervisé ?",
+      "question": "Quelle commande montre le chemin actuel dans le terminal ?",
       "choix": [
-        "1. Un modèle qui apprend avec des données étiquetées",
-        "2. Un modèle qui s'auto-améliore",
-        "3. Un modèle sans données d'entrée",
-        "4. Un modèle pour la reconnaissance d'images"
+        "1. ls",
+        "2. cd",
+        "3. pwd",
+        "4. echo"
       ],
-      "reponse": ["Un modèle qui apprend avec des données étiquetées", 1]
-    }
-  ],
-  "DevOps": [
-    {
-      "question": "Qu'est-ce que Git ?",
-      "choix": [
-        "1. Un système de gestion de version décentralisé",
-        "2. Un serveur de base de données",
-        "3. Un outil d'automatisation de tests",
-        "4. Un langage de programmation"
-      ],
-      "reponse": ["Un système de gestion de version décentralisé", 1]
+      "reponse": ["pwd", 3]
     },
     {
-      "question": "Qu'est-ce que CI/CD ?",
+      "question": "Quelle commande est utilisée pour créer un fichier vide ?",
       "choix": [
-        "1. Continuous Integration / Continuous Delivery",
-        "2. Computer Integrated Development",
-        "3. Command Integration / Command Delivery",
-        "4. Cloud Infrastructure / Continuous Delivery"
+        "1. mkdir",
+        "2. touch",
+        "3. nano",
+        "4. rm"
       ],
-      "reponse": ["Continuous Integration / Continuous Delivery", 1]
-    }
-  ],
-  "Agile": [
-    {
-      "question": "Qu'est-ce que la méthode Agile ?",
-      "choix": [
-        "1. Une méthode de gestion de projet linéaire",
-        "2. Une méthode qui encourage les changements rapides",
-        "3. Une méthode basée sur des documents détaillés",
-        "4. Une méthode de développement uniquement pour les grandes entreprises"
-      ],
-      "reponse": ["Une méthode qui encourage les changements rapides", 2]
+      "reponse": ["touch", 2]
     },
     {
-      "question": "Qu'est-ce que le Scrum dans Agile ?",
+      "question": "Comment afficher le contenu d'un fichier texte ?",
       "choix": [
-        "1. Un type de réunion quotidienne",
-        "2. Un framework pour gérer des projets Agile",
-        "3. Une technique de gestion des tâches",
-        "4. Un type de programmation"
+        "1. cat",
+        "2. rm",
+        "3. mv",
+        "4. mkdir"
       ],
-      "reponse": ["Un framework pour gérer des projets Agile", 2]
+      "reponse": ["cat", 1]
     },
     {
-      "question": "Quel est l'objectif principal de la méthode Agile ?",
+      "question": "Que fait la commande 'mkdir' ?",
       "choix": [
-        "1. Réduire le nombre de réunions",
-        "2. Accélérer la livraison de valeur aux utilisateurs",
-        "3. Imposer une hiérarchie stricte",
-        "4. Garantir une documentation complète"
+        "1. Supprime un répertoire",
+        "2. Affiche le contenu d'un répertoire",
+        "3. Crée un nouveau répertoire",
+        "4. Renomme un fichier"
       ],
-      "reponse": ["Accélérer la livraison de valeur aux utilisateurs", 2]
+      "reponse": ["Crée un nouveau répertoire", 3]
+    },
+    {
+      "question": "Quelle commande permet de copier un fichier ?",
+      "choix": [
+        "1. cp",
+        "2. mv",
+        "3. rm",
+        "4. touch"
+      ],
+      "reponse": ["cp", 1]
     }
   ]
 }

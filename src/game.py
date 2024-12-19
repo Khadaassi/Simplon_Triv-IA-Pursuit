@@ -1,7 +1,4 @@
-import json
-import random
-import os
-import time
+import json, random, time
 from src.player import Player
 from src.dice import rolling_dice
 
@@ -12,9 +9,18 @@ YELLOW = "\033[93m"
 BLUE = "\033[34m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
-
 class Game:
+    """
+    Represents the interactive trivia game.
+    """
+
     def __init__(self, players):
+        """
+        Initializes the game with the given players and board setup.
+
+        Args:
+            players (list): List of Player objects participating in the game.
+        """
         self.players = players
         self.current_player_idx = 0
         self.current_question = 0
@@ -22,25 +28,46 @@ class Game:
             ["Bases de données", "🎲", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Agile", "DevOps"],
             ["Agile", "🎲", "DevOps", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
             ["DevOps", "🎲", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
-            ["Langages de programmation", "🎲", "Agile", "Base de données", "Actualités IA", "DevOps", "Ligne de commandes"],
+            ["Langages de programmation", "🎲", "Agile", "Bases de données", "Actualités IA", "DevOps", "Ligne de commandes"],
             ["Actualités IA", "🎲", "Langages de programmation", "Agile", "DevOps", "Ligne de commandes", "Bases de données"],
             ["Ligne de commandes", "🎲", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"],
         ]
         self.board = self.create_board()
-        self.special_case_indices = [0, 7, 14, 21, 28, 35, 42] 
+        self.special_case_indices = [0, 7, 14, 21, 28, 35, 42]
         self.questions = self.load_questions()
 
     def load_questions(self):
+        """
+        Loads the questions from a JSON file.
+
+        Returns:
+            dict: Dictionary containing questions categorized by themes.
+        """
         with open("data/questions.json", "r") as file:
             return json.load(file)
 
     def create_board(self):
+        """
+        Creates the game board with a predefined sequence of categories.
+
+        Returns:
+            list: The complete game board as a list of categories.
+        """
         board = []
         for i in range(6):
             board.extend(self.categories_per_quarter[i])
         return board
 
     def get_question_by_category(self, category):
+        """
+        Retrieves a random question from a given category.
+
+        Args:
+            category (str): The category to fetch the question from.
+
+        Returns:
+            dict or None: A question dictionary or None if no question is available.
+        """
         self.current_question += 1
         if category in self.questions:
             category_questions = self.questions[category]
@@ -49,24 +76,51 @@ class Game:
         return None
 
     def is_special_case(self, position):
-        """Vérifie si la position actuelle est une case spéciale."""
+        """
+        Checks if the current board position is a special case.
+
+        Args:
+            position (int): The position on the board.
+
+        Returns:
+            bool: True if the position is special, False otherwise.
+        """
         return position in self.special_case_indices
 
     def get_possible_categories(self, current_position, steps, board_size):
-        """Retourne les catégories des cases accessibles après un lancer de dé."""
+        """
+        Calculates possible forward and backward categories from a position.
+
+        Args:
+            current_position (int): The current position of the player.
+            steps (int): Number of steps the player rolls.
+            board_size (int): Total size of the board.
+
+        Returns:
+            tuple: Forward and backward positions with their corresponding categories.
+        """
         forward_position = (current_position + steps) % board_size
         backward_position = (current_position - steps) % board_size
         forward_category = self.board[forward_position]
         backward_category = self.board[backward_position]
         return forward_position, forward_category, backward_position, backward_category
-    
+
     def is_game_over(self):
+        """
+        Checks if the game is over by verifying if any player has won.
+
+        Returns:
+            Player or None: The winning player or None if no one has won yet.
+        """
         for player in self.players:
             if player.final_score == 6:
                 return player
         return None
-    
+
     def display_scores(self):
+        """
+        Displays the scores of all players.
+        """
         print(f"\n{BOLD}{YELLOW}Récapitulatif des scores :{RESET}")
         for player in self.players:
             print(f"\n{BOLD}{BLUE}{player.name}{RESET} :")
@@ -75,6 +129,9 @@ class Game:
             print(f"{BOLD}Score total : {player.final_score} Δ{RESET}")
 
     def play_turn(self):
+        """
+        Manages the logic for a single player's turn.
+        """
         player = self.players[self.current_player_idx]
 
         while player.final_score < 6:
@@ -82,7 +139,7 @@ class Game:
             print(f"{RESET}{player.name} lances le dé et obtiens {roll}\n")
 
             forward_pos, forward_cat, backward_pos, backward_cat = self.get_possible_categories(
-            player.position, roll, len(self.board)
+                player.position, roll, len(self.board)
             )
             print(f"Options possibles :")
             print(f"{BOLD}{BLUE}> (Avancer) : Case {forward_pos + 1} - {forward_cat}{RESET}")
