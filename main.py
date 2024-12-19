@@ -1,6 +1,8 @@
 from src.game import Game
 from src.player import Player
-import time
+import time, os
+
+clear = lambda: os.system("cls" if os.name == "nt" else "clear")
 
 
 YELLOW = "\033[93m"
@@ -8,17 +10,19 @@ BLUE = "\033[34m"
 GREEN = "\033[92m"
 
 def main():
-    player1 = Player("Antoine")
-    player2 = Player("Ludivine")
+    player1 = Player("Player 1")
+    player2 = Player("Player 2")
     
     game = Game([player1, player2])
     
-    print(f"{YELLOW}            Le jeu commence !")
-    print(f"{YELLOW}-"* 50)
+    print(f"{YELLOW}                  Le jeu commence !")
+    print(f"{YELLOW}-"* 54)
 
     while True:
-        print(f"{YELLOW}--- Nouveau tour ---")
+        print(f"{YELLOW}-------------------- Nouveau Tour --------------------")
         game.play_turn()
+        clear
+
         
         winner = game.is_game_over()
         if winner:

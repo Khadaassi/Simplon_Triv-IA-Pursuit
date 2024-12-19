@@ -1,8 +1,8 @@
-import json, random, time
+import json, random, time, os
 from src.player import Player
 from src.dice import rolling_dice
 
-
+clear = lambda: os.system("cls" if os.name == "nt" else "clear")
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -60,6 +60,35 @@ class Game:
         for i in range(6):
             board.extend(self.categories_per_quarter[i])
         return board
+
+    def draw_board(self):
+        circle_art = [
+            "                    🟣   🟥  🎲 ",
+            "                🟢                🟡",
+            "            🟡                         🟠",
+            "         🔴                               🟣",
+            "      🔵                                    🟢",
+            "    🎲                                        🔵",
+            "   🟧                                           🟩",
+            "  🔴                                             🎲",
+            " 🟠                                               🔵",
+            " 🔵                                               🟠",
+            " 🟢                                               🟣",
+            "  🟡                                              🔴",
+            "   🎲                                            🟡",
+            "    🟪                                         🟦",
+            "     🟠                                       🎲",
+            "       🔵                                   🟡",
+            "         🟣                               🟠",
+            "            🔴                        🟣",
+            "                🟢                🟢",
+            "                     🎲  🟨  🔴 "
+        ]
+        
+        
+        for line in circle_art:
+            print(line)
+        print(f"{YELLOW}-"*54)
 
     def get_question_by_category(self, category):
         """
@@ -148,6 +177,7 @@ class Game:
         player = self.players[self.current_player_idx]
 
         while player.final_score < 6:
+            self.draw_board()
             roll = rolling_dice()
             print(f"{RESET}{player.name} lances le dé et obtiens {roll}\n")
 
@@ -199,12 +229,18 @@ class Game:
                     print(f"{RESET}Score pour le thème {current_category} = {score_by_categorie}")
                     print(f"Score total = {score_total}")
                     print(f"Nombre de {GREEN}Δ {RESET}gagné = {player.final_score}\n\n")
+                    time.sleep(4)
+                    clear()
+                    print(f"{YELLOW}----------------- Question suivante -----------------")
                 else:
                     print(f"{RED}Mauvaise réponse. La bonne réponse était : {question_data['reponse'][1]}.")
-                    time.sleep(1)
+                    time.sleep(3)
+                    clear()
                     break
             else:
                 print(f"{YELLOW}Relancez le dé!")
                 time.sleep(1)
+                clear()
+                print(f"{YELLOW}----------------- Question suivante -----------------")
 
         self.current_player_idx = (self.current_player_idx + 1) % len(self.players)
