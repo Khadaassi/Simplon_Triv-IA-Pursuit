@@ -22,6 +22,7 @@ def main():
         
         winner = game.is_game_over()
         if winner:
+            game.get_question_win
             print(f"{GREEN}🎉 Félicitations {winner.name} ! Vous avez gagné le jeu avec {winner.final_score} Δ ! 🎉")
             time.sleep(1)
             break
