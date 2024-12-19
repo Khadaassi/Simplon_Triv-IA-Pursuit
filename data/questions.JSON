@@ -1,4 +1,18 @@
 {
+    "Question finale" : [
+     {
+      "question" : "Si un Serpantard développait une IA, quel trait de personnalité chercherait-il à développer?",
+
+      "choix": [
+          "1. Courage",
+          "2. Loyauté",
+          "3. Ambition",
+          "4. Créativité"
+        ],
+        "reponse": ["Un ensemble de tables reliées entre elles", 1]
+     }   
+
+    ],
   "Bases de données": [
     {
       "question": "Qu'est-ce qu'une base de données relationnelle ?",
