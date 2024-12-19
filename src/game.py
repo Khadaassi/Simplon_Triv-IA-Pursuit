@@ -1,11 +1,8 @@
-import json
-import random
-import os
-import time
+import json, random, time
 from src.player import Player
 from src.dice import rolling_dice
 
-clear = lambda: os.system("cls" if os.name == "nt" else "clear")
+
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -73,11 +70,20 @@ class Game:
         Returns:
             dict or None: A question dictionary or None if no question is available.
         """
-        self.current_question += 1
         if category in self.questions:
             category_questions = self.questions[category]
-            if category_questions:
-                return random.choice(category_questions)
+            remaining_questions = [q for q in category_questions if q not in self.question_already_posed]
+        else:
+            remaining_questions = []
+
+        if remaining_questions:
+            
+            question = random.choice(remaining_questions)
+            self.question_already_posed.append(question)
+
+            return question
+        else:
+            print(f"Toutes les questions de la catégorie '{category}' ont déjà été posées.")
         return None
 
     def is_special_case(self, position):
