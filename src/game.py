@@ -37,6 +37,7 @@ class Game:
         self.board = self.create_board()
         self.special_case_indices = [0, 7, 14, 21, 28, 35, 42]
         self.questions = self.load_questions()
+        self.question_already_posed = []
 
     def load_questions(self):
         """
@@ -83,7 +84,8 @@ class Game:
 
             return question
         else:
-            print(f"Toutes les questions de la catégorie '{category}' ont déjà été posées.")
+            if category != "🎲":
+                print(f"Toutes les questions de la catégorie '{category}' ont déjà été posées.")
         return None
 
     def is_special_case(self, position):
