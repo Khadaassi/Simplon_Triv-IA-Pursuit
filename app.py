@@ -138,9 +138,9 @@ def pursuit_board():
             y5 = center[1] + int(radius_50 * math.sin(angle))
             pygame.draw.circle(screen, light_grey, (x5, y5), 20)
      
-    screen.blit(scoring, (screen_width/2+450, screen_height/2 - 250))
-    pygame.draw.rect(screen, black, [1140, 340, 620, 320])
-    pygame.draw.rect(screen, light_grey, [1150, 350, 600, 300])
+    # screen.blit(scoring, (screen_width/2+450, screen_height/2 - 250))
+    # pygame.draw.rect(screen, black, [1140, 340, 620, 320])
+    # pygame.draw.rect(screen, light_grey, [1150, 350, 600, 300])
 
     screen.blit(player_name, (screen_width/2+210, screen_height/2 - 180))
     screen.blit(score, (screen_width/2+210, screen_height/2 - 160))
@@ -189,21 +189,49 @@ def get_case_category(position,cases):
     cat = cases[position]
     return cat
 
-def draw_question(cat):
+current_question = None
+current__choices = None
 
+def load_question(cat):
+    """Charge une nouvelle question pour une catégorie donnée."""
+    global current_question, current_choices
     with open("media/questions.JSON", 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        data = json.load(file)
     questions = data[cat]
     question_dict = random.choice(questions)
-    question = question_dict['question']
-    choice = question_dict['choix']
-    answers = question_dict['reponse']
+    current_question = question_dict['question']
+    current_choices = question_dict['choix']
 
-    display_question = smallfont.render(question, True, black)
-    screen.blit(display_question, (screen_width/2+210, screen_height/2 - 130))
+def draw_question():
+    """Affiche la question actuelle à l'écran."""
+    global current_question, current_choices
+    
+    if current_question is not None:
+        # Afficher la question
+        question_surface = smallfont.render(current_question, True, black)
+        screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))
+        
+        # Afficher les choix
+        if current_choices:
+            for i, choice in enumerate(current_choices):
+                choice_surface = smallfont.render(f"{i+1}. {choice}", True, black)
+                screen.blit(choice_surface, (screen_width / 2 + 210, screen_height / 2 - 90 + i * 30))
+
+
+# def draw_question(cat):
+#     with open("media/questions.JSON", 'r', encoding='utf-8') as file:
+#             data = json.load(file)
+#     questions = data[cat]
+#     question_dict = random.choice(questions)
+#     question = question_dict['question']
+#     choice = question_dict['choix']
+#     answers = question_dict['reponse']
+
+#     display_question = smallfont.render(question, True, black)
+#     screen.blit(display_question, (screen_width/2+210, screen_height/2 - 130))
 
     
-    return question, choice #, answers
+#     return question, choice #, answers
 
 #
 #  def move(move_path, direction, cases):
@@ -248,7 +276,6 @@ def main():
         # Draw the board and the player
         draw_board()
         pursuit_board()
-        
         draw_player(player_position)
         
          # Afficher le score du dé
@@ -259,15 +286,19 @@ def main():
         if move_path is not None: #and not question_displayed:
             draw_buttons()
 
+        # Get new question if the player moves
         if direction is not None and current_question is None:
             cat = get_case_category(player_position,cases)
-            current_question, current_question=draw_question(cat)
+            load_question(cat)
+            # current_question, current_question=draw_question()
             direction =None
+        draw_question()
         
         if current_question is not None and current_choices is not None:
             display_question = smallfont.render(current_question, True, black)
             screen.blit(display_question, (screen_width / 2 + 210, screen_height / 2 - 130))
             direction =None
+
         # Draw the dice button
         pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height -980, 140, 40])
         screen.blit(text_dice, (screen_width -250, screen_height -980 + 10))
