@@ -48,6 +48,34 @@ class Game:
         with open("data/questions.json", "r") as file:
             return json.load(file)
 
+
+    def load_question_finale():
+        
+        with open('date/questions.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        question_data = data['question_finale']
+        
+        print(f"\n{question_data['question']}")
+        
+        for choix in question_data['choix']:
+            print(choix)
+        return question_data
+
+
+    def get_question_win():
+        question_data = load_question_finale()
+        
+        player_answer = int(input(f"\nVotre réponse (numéro) : "))
+        
+        if player_answer == question_data['reponse'][1]:
+            print("Bonne réponse !")
+        else:
+            print("Mauvaise réponse. La bonne réponse est :")
+            print(f"{question_data['reponse'][1]}")
+        return None
+
+
     def create_board(self):
         """
         Creates the game board with a predefined sequence of categories.
