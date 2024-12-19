@@ -5,6 +5,7 @@ import time
 
 YELLOW = "\033[93m"
 BLUE = "\033[34m"
+GREEN = "\033[92m"
 
 def main():
     player1 = Player("Antoine")
@@ -12,18 +13,26 @@ def main():
     
     game = Game([player1, player2])
     
-    num_turns = 10
-    
     print(f"{YELLOW}            Le jeu commence !")
     print(f"{YELLOW}-"* 50)
 
-    for turn in range(num_turns):
-        print(f"{BLUE}--- Tour {turn + 1} ---")
+    while True:
+        print(f"{YELLOW}--- Nouveau tour ---")
         game.play_turn()
-        time.sleep(2)
-        print(f"{YELLOW}-"* 50)
+        
+        winner = game.is_game_over()
+        if winner:
+            print(f"{GREEN}🎉 Félicitations {winner.name} ! Vous avez gagné le jeu avec {winner.final_score} Δ ! 🎉")
+            time.sleep(1)
+            break
+        
     
+    game.display_scores()
+
+    time.sleep(1)
+    print(f"{YELLOW}-"* 50)
     print(f"{YELLOW}Le jeu est terminé !\n")
 
 if __name__ == "__main__":
     main()
+
