@@ -50,12 +50,12 @@ class Game:
             return json.load(file)
 
 
-    def load_question_finale():
+    def load_question_finale(self):
         
-        with open('date/questions.json', 'r', encoding='utf-8') as f:
+        with open('data/questions.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         
-        question_data = data['question_finale']
+        question_data = data['Question finale']
         
         print(f"\n{question_data['question']}")
         
@@ -64,8 +64,8 @@ class Game:
         return question_data
 
 
-    def get_question_win():
-        question_data = load_question_finale()
+    def get_question_win(self):
+        question_data = self.load_question_finale()
         
         player_answer = int(input(f"\nVotre réponse (numéro) : "))
         

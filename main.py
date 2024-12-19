@@ -8,6 +8,7 @@ clear = lambda: os.system("cls" if os.name == "nt" else "clear")
 YELLOW = "\033[93m"
 BLUE = "\033[34m"
 GREEN = "\033[92m"
+RESET = "\033[0m"
 
 def main():
     player1 = Player("Player 1")
@@ -19,14 +20,14 @@ def main():
     print(f"{YELLOW}-"* 54)
 
     while True:
-        print(f"{YELLOW}-------------------- Nouveau Tour --------------------")
+        print(f"{YELLOW}-------------------- Nouveau Tour --------------------{RESET}")
         game.play_turn()
         clear
 
         
         winner = game.is_game_over()
         if winner:
-            game.get_question_win
+            game.get_question_win()
             print(f"{GREEN}🎉 Félicitations {winner.name} ! Vous avez gagné le jeu avec {winner.final_score} Δ ! 🎉")
             print("""
  __      __                                                                __      __                         ______    ______    ______ ________ 
