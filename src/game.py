@@ -26,7 +26,7 @@ class Game():
     ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
     ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
     ["Agile", "DevOps", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
-    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+    ["Langages de programmation", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Bases de données"],
     ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
     ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
 ]

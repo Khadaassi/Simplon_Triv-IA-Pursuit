@@ -18,6 +18,7 @@ fps = pygame.time.Clock()
 #initialize colours
 white = (255,255,255) 
 black = (0,0,0)
+red= (227, 44, 54)
 light_grey = (211,224,227)
 very_light_grey = (240, 243, 247)
 dark_grey =(184, 178, 178)
@@ -56,7 +57,7 @@ text_forward = smallfont.render('Forward', True, black)
 clockwise= xsfont.render('(Clockwise)', True, black)
 text_backward = smallfont.render('Backward ', True, black)
 counterclockewise = xsfont.render('(Counterclockwise)', True, black)
-scoring = smallfont.render('Scoring', True, black)
+# points = smallfont.render('Points : ', True, black)
 rect = pygame.Rect(100, 100, 200, 150)
 player_name = smallfont.render('Player : ', True, black)
 score = smallfont.render('score : ', True, black)
@@ -78,6 +79,8 @@ radius = 400
 # initialize game state
 player_position = 0  # Current position of the player
 cases = Game.create_board(Game(36))  # Initialize board
+points = 0      # initialise le score du joueur
+
 
 # Load images
 cheese = pygame.image.load("media/cheese_slice.png")
@@ -142,10 +145,10 @@ def pursuit_board():
     # pygame.draw.rect(screen, black, [1140, 340, 620, 320])
     # pygame.draw.rect(screen, light_grey, [1150, 350, 600, 300])
 
-    screen.blit(player_name, (screen_width/2+210, screen_height/2 - 180))
-    screen.blit(score, (screen_width/2+210, screen_height/2 - 160))
+    # screen.blit(player_name, (screen_width/2+210, screen_height/2 - 180))
+    # screen.blit(score, (screen_width/2+210, screen_height/2 - 160))
 
-    screen.blit(legend, (screen_width/2+180, screen_height/2 +200))
+    # screen.blit(legend, (screen_width/2+180, screen_height/2 +200))
     pygame.draw.circle(screen, blue, (screen_width/2+180, screen_height/2 +250), 20)
     pygame.draw.circle(screen, green, (screen_width/2+180, screen_height/2 +300), 20)
     pygame.draw.circle(screen, pink, (screen_width/2+180, screen_height/2 +350), 20)
@@ -186,36 +189,101 @@ def dice_result(move_path):
     screen.blit(move_number, (screen_width - 300, screen_height -920))
 
 def get_case_category(position,cases):
+    global cat
     cat = cases[position]
     return cat
 
 current_question = None
 current__choices = None
+current_answer   = None
 
 def load_question(cat):
+
     """Charge une nouvelle question pour une catégorie donnée."""
-    global current_question, current_choices
+    global current_question, current_choices, current_answer,questions
     with open("media/questions.JSON", 'r', encoding='utf-8') as file:
         data = json.load(file)
     questions = data[cat]
     question_dict = random.choice(questions)
+    
     current_question = question_dict['question']
     current_choices = question_dict['choix']
+    current_answer = question_dict['reponse']
 
 def draw_question():
     """Affiche la question actuelle à l'écran."""
-    global current_question, current_choices
-    
-    if current_question is not None:
+    global current_question, current_choices, current_answer, answer_buttons, cat
+    answer_buttons = []
+
+
+        # # Afficher la question
+        # if cat == "Bases de données": 
+        #     question_surface = smallfont.render(current_question, True, blue)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))
+        # elif cat == "Langages de programmation":
+        #     question_surface = smallfont.render(current_question, True, green)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))           
+        # elif cat == "Ligne de commandes":
+        #     question_surface = smallfont.render(current_question, True, pink)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130)) 
+        # elif cat == "Actualités IA":
+        #     question_surface = smallfont.render(current_question, True, orange)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))
+        # elif cat == "Agile":
+        #     question_surface = smallfont.render(current_question, True, yellow)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130)) 
+        # elif cat == "DevOps":
+        #     question_surface = smallfont.render(current_question, True, purple)
+        #     screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))    
+
+
         # Afficher la question
-        question_surface = smallfont.render(current_question, True, black)
-        screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))
         
+    question_surface = smallfont.render(current_question, True, black)
+    screen.blit(question_surface, (screen_width / 2 + 210, screen_height / 2 - 130))
+        
+          # Liste des rectangles des boutons pour les choix
         # Afficher les choix
-        if current_choices:
-            for i, choice in enumerate(current_choices):
-                choice_surface = smallfont.render(f"{i+1}. {choice}", True, black)
-                screen.blit(choice_surface, (screen_width / 2 + 210, screen_height / 2 - 90 + i * 30))
+    if current_choices:
+        for i, choice in enumerate(current_choices):
+            choice_surface = smallfont.render(f"{i+1}. {choice}", True, black)
+            screen.blit(choice_surface, (screen_width / 2 + 210, screen_height / 2 - 90 + i * 30))
+            button_rect = pygame.draw.rect(screen, light_grey, [screen_width / 2 + 180, screen_height / 2 - 88 + i * 30, 20, 20])
+            button_rect = pygame.Rect(screen_width / 2 + 180, screen_height / 2 - 88 + i * 30, 20, 20)
+            answer_buttons.append(button_rect)
+            screen.blit(text_dice, (screen_width -250, screen_height -980 + 10))
+
+
+            #store the (x,y) coordinates into the variable as a tuple 
+            mouse = pygame.mouse.get_pos() 
+            #create buttons with text on them and change colour if mouse hovers over them
+
+            # Affiche le carré en noir si la souris passe dessus 
+            if screen_width / 2 + 180<= mouse[0] <= screen_width / 2 + 180 +20 and screen_height/ 2 - 88 + i * 30 <= mouse[1] <= screen_height/ 2 - 88+20 + i * 30: 
+                pygame.draw.rect(screen, black, [screen_width / 2 + 180, screen_height / 2 - 88 + i * 30, 20, 20])
+            
+            
+
+def check_answer(selected_index):
+    """Vérifie si l'index sélectionné correspond à la bonne réponse."""
+    global current_choices, current_answer, points
+    
+    if current_choices[selected_index] == current_answer:
+        print("Bonne réponse!")
+        # Indiquer la bonne réponse en vert
+        pygame.draw.rect(screen, green, [screen_width / 2 + 180, screen_height / 2 - 88 + selected_index * 30, 20, 20])
+        points += 1
+
+    else:
+        print("Mauvaise réponse!")
+        # Indiquer la réponse incorrecte en rouge
+        pygame.draw.rect(screen, red, [screen_width / 2 + 180, screen_height / 2 - 88 + selected_index * 30, 20, 20])
+
+    scoring_surface = smallfont.render(str(points), True, black)
+    screen.blit(scoring_surface, (screen_width / 2 , screen_height / 2 ))
+    # clock    
+    # pygame.display.update()
+        
 
 
 # def draw_question(cat):
@@ -245,35 +313,13 @@ current_question = None
 current_choices = None
 
 def main():
-    global player_position, current_question, current_choices
+    global player_position, current_question, current_choices, player_position, answer_buttons
     direction = None
     move_path = None
     
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouse = pygame.mouse.get_pos()
-                if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height-980 <= mouse[1] <= screen_height-940:
-                    # Roll dice and update position
-                    move_path = rolling_dice()
-                    direction =None
-                    #current_question, current_choices = None, None
-
-                if move_path is not None:
-                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
-                        player_position = (player_position + move_path) % len(cases)
-                        direction = 1
-                        
-
-                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
-                        player_position = (player_position - move_path) % len(cases)
-                        direction = -1
-                        
-        # Draw the board and the player
+                # Draw the board and the player
         draw_board()
         pursuit_board()
         draw_player(player_position)
@@ -293,6 +339,81 @@ def main():
             # current_question, current_question=draw_question()
             direction =None
         draw_question()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse = pygame.mouse.get_pos()
+
+                                # Vérifier si on clique sur les boutons de réponses
+                for i, rect in enumerate(answer_buttons):
+                    if rect.collidepoint(mouse):  # Vérifie si le clic est dans le bouton
+                        check_answer(i)  # Vérifie si la réponse est correcte ou non
+
+
+                if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height-980 <= mouse[1] <= screen_height-940:
+                    # Roll dice and update position
+                    move_path = rolling_dice()
+                    direction =None
+                    #current_question, current_choices = None, None
+                                    # Vérifier si on clique sur les boutons de réponses
+                for i, rect in enumerate(answer_buttons):
+                    if rect.collidepoint(mouse):  # Vérifie si le clic est dans le bouton
+                        check_answer(i)  # Vérifie si la réponse est correcte ou non
+
+                if move_path is not None:
+                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
+                        player_position = (player_position + move_path) % len(cases)
+                        direction = 1
+                        
+
+                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
+                        player_position = (player_position - move_path) % len(cases)
+                        direction = -1
+                    
+                    # Check answers
+                    # if direction is not None:
+                    # fonction clique sur une reponse
+                    #################################################################
+                    # for i in range(4):
+                    #     if screen_width / 2 + 180 <= mouse[0] <= screen_width / 2 + 180 +20 and screen_height / 2 - 88 + i+1 * 30 <= mouse[1] <=  screen_height / 2 - 68 + i+1 * 30:
+                    #         answer = i+1
+                    #         screen.blit(legend, (screen_width/2 -250, screen_height/2 -10))
+                    #         print(f'mouse : {mouse[0]}')
+                    #         print(screen_width / 2 + 180)
+                    #         print(screen_width / 2 + 180 +20)
+                    #         print(current_choices[i])
+                    #         print(i)
+                    #         mouse = pygame.mouse.get_pos()
+                            # if current_choices[i] == current_answer:
+                            #     print('you re the goat')
+                            #     pygame.draw.rect(screen, green, [screen_width / 2 + 180, screen_height / 2 - 88 + i * 30, 20, 20])
+
+                    if current__choices is not None:
+                        for i in range(len(current_choices)):
+                            if screen_width / 2 + 180 <= mouse[0] <= screen_width / 2 + 200 and screen_height / 2 - 88 + i * 30 <= mouse[1] <= screen_height / 2 - 68 + i * 30:
+                                check_answer(i)
+                                print(f'mouse : {mouse[0]}')
+                                print(screen_width / 2 + 180)
+                                print(screen_width / 2 + 180 +20)
+                                
+
+                                #function compare(answer)
+
+                        #screen_width / 2 + 180, screen_height / 2 - 88 + i+1 * 30
+                            
+                        
+
+        
+        # event propose reponse
+
+            
+
+
+
+
         
         if current_question is not None and current_choices is not None:
             display_question = smallfont.render(current_question, True, black)
@@ -308,7 +429,7 @@ def main():
         #     texte=f"Résultat : {last_dice_result}"
         #     move_number = smallfont.render(texte, True, black)
         #     screen.blit(move_number, (screen_width - 200, screen_height / 2 + 50, 140, 40))
-
+        # pygame.display.update()
         pygame.display.flip()
         clock.tick(10)
 

@@ -1,0 +1,82 @@
+[
+  {
+    "question": "Comment peut-on comparer une base de données relationnelle au registre des baguettes magiques à Ollivander ?",
+    "choix": [
+      "Les deux sont des collections désorganisées d'informations",
+      "Les deux sont des ensembles de données organisées en tables",
+      "Les baguettes magiques ne sont pas répertoriées dans un registre",
+      "Les bases de données sont magiques, tout comme les baguettes"
+    ],
+    "reponse": "Les deux sont des ensembles de données organisées en tables"
+  },
+  {
+    "question": "Quel langage pourrait être l'équivalent informatique du sortilège Accio lorsqu'il s'agit de récupérer des données ?",
+    "choix": [
+      "Python",
+      "SQL",
+      "Java",
+      "HTML"
+    ],
+    "reponse": "SQL"
+  },
+  {
+    "question": "Comment un pare-feu peut-il être comparé à un sortilège de protection comme Protego ?",
+    "choix": [
+      "Un pare-feu bloque les attaques entrantes, tout comme Protego repousse les sorts",
+      "Protego capture les attaques pour les analyser",
+      "Les deux permettent une invisibilité complète",
+      "Protego est un système d'authentification, contrairement au pare-feu"
+    ],
+    "reponse": "Un pare-feu bloque les attaques entrantes, tout comme Protego repousse les sorts"
+  },
+  {
+    "question": "Quelle analogie magique peut-on faire avec le phishing en cybersécurité ?",
+    "choix": [
+      "Un sortilège d'oubli",
+      "Une potion de vérité",
+      "Un déguisement sous Polynectar",
+      "Un Patronus pour effrayer"
+    ],
+    "reponse": "Un déguisement sous Polynectar"
+  },
+  {
+    "question": "Quel algorithme peut être comparé à l'utilisation de la Carte du Maraudeur pour trouver le chemin le plus court ?",
+    "choix": [
+      "L'algorithme de tri",
+      "L'algorithme de Dijkstra",
+      "L'algorithme de compression",
+      "L'algorithme génétique"
+    ],
+    "reponse": "L'algorithme de Dijkstra"
+  },
+  {
+    "question": "Comment les sortilèges conditionnels, comme ceux qui protègent la Chambre des Secrets, peuvent-ils être liés à un if/else en programmation ?",
+    "choix": [
+      "Ils ne sont pas liés du tout",
+      "Les deux fonctionnent uniquement par magie",
+      "Ils appliquent une logique conditionnelle pour exécuter une action",
+      "Les if/else sont plus complexes que les sortilèges conditionnels"
+    ],
+    "reponse": "Ils appliquent une logique conditionnelle pour exécuter une action"
+  },
+  {
+    "question": "Quel artefact magique pourrait être comparé à une IA apprenante ?",
+    "choix": [
+      "La Pensine",
+      "Le Choixpeau magique",
+      "Le Retourneur de Temps",
+      "La Pierre Philosophale"
+    ],
+    "reponse": "Le Choixpeau magique"
+  },
+  {
+    "question": "Comment peut-on comparer un réseau de neurones artificiels à une armée de sorciers coordonnés par une pensée commune ?",
+    "choix": [
+      "Les deux agissent de manière indépendante sans coordination",
+      "Un réseau de neurones fonctionne comme des sorciers autonomes",
+      "Les deux traitent des tâches complexes en travaillant ensemble",
+      "Les réseaux de neurones sont limités, contrairement aux sorciers"
+    ],
+    "reponse": "Les deux traitent des tâches complexes en travaillant ensemble"
+  }
+]
