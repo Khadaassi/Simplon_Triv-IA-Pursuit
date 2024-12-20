@@ -24,9 +24,9 @@ class Game():
     def create_board(self):
         categories_per_quarter = [
     ["Bases de données", "Langages de programmation", "Ligne de commandes", "Actualités IA", "DevOps", "Agile"],
-    ["DevOps", "Langages de programmation", "Ligne de commandes", "Actualités IA", "Bases de données", "Agile"],
+    ["DevOps", "Langages de programmation",  "Actualités IA", "Ligne de commandes","Bases de données", "Agile"],
     ["Agile", "DevOps", "Ligne de commandes", "Actualités IA", "Bases de données", "Langages de programmation"],
-    ["Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps", "Langages de programmation"],
+    ["Langages de programmation","Bases de données", "Agile", "Ligne de commandes", "Actualités IA", "DevOps"],
     ["Actualités IA", "Langages de programmation", "Bases de données", "DevOps", "Ligne de commandes", "Agile"],
     ["Ligne de commandes", "DevOps", "Bases de données", "Langages de programmation", "Agile", "Actualités IA"] 
 ]

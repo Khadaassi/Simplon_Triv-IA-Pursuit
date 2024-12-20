@@ -18,6 +18,7 @@ fps = pygame.time.Clock()
 #initialize colours
 white = (255,255,255) 
 black = (0,0,0)
+red= (227, 44, 54)
 light_grey = (211,224,227)
 very_light_grey = (240, 243, 247)
 dark_grey =(184, 178, 178)
@@ -34,7 +35,7 @@ purple_light = (197, 166, 227)
 pink_light = (227, 166, 225)
 orange_light = (217, 184, 150)
 yellow_light = (217, 210, 132)
-
+red= (227, 44, 54)
 #initialize dimensions
 screen_width = screen.get_width() 
 screen_height = screen.get_height()
@@ -48,26 +49,26 @@ text_start = smallfont.render('Start' , True , black)
 text_game_choice=bigfont.render('Choose your game', True, black)
 text_solo = smallfont.render('Solo' , True , black)
 text_multiplayer = smallfont.render('Multiplayer', True, black)
-text_dice = smallfont.render('Dice', True, black)
+text_dice = smallfont.render('Dé', True, black)
 title = bigfont.render('Triv-IA-pursuit', True, black)
 sub_title=middlefont.render('Triv-IA-pursuit', True, black)
 screen.blit(title, (screen_width/2-100, screen_height/2))
-text_forward = smallfont.render('Forward', True, black)
-clockwise= xsfont.render('(Clockwise)', True, black)
-text_backward = smallfont.render('Backward ', True, black)
-counterclockewise = xsfont.render('(Counterclockwise)', True, black)
+text_forward = smallfont.render('Avancer', True, black)
+clockwise= xsfont.render('(horaire)', True, black)
+text_backward = smallfont.render('Reculer ', True, black)
+counterclockewise = xsfont.render('(antihoraire)', True, black)
 scoring = smallfont.render('Scoring', True, black)
 rect = pygame.Rect(100, 100, 200, 150)
 player_name = smallfont.render('Player : ', True, black)
 score = smallfont.render('score : ', True, black)
-legend = smallfont.render('Legend : ', True, black)
-theme1 = smallfont.render("Actualités IA", True, black)
-theme2 = smallfont.render("DevOps", True, black)
-theme3 = smallfont.render("Ligne de commandes", True, black)
-theme4 = smallfont.render("Bases de données", True, black)
-theme5 = smallfont.render("Langages de programmation", True, black)
-theme6 = smallfont.render("AGIL", True, black)
-theme7 = smallfont.render("DevOps", True, black)
+legend = smallfont.render('Légende : ', True, black)
+ia = smallfont.render("Actualités IA", True, black)
+devops = smallfont.render("DevOps", True, black)
+ligne_commande = smallfont.render("Ligne de commandes", True, black)
+db = smallfont.render("Bases de données", True, black)
+langage_progra = smallfont.render("Langages de programmation", True, black)
+agile = smallfont.render("AGILE", True, black)
+
 
 LEFT = 1
 
@@ -78,6 +79,15 @@ radius = 400
 # initialize game state
 player_position = 0  # Current position of the player
 cases = Game.create_board(Game(36))  # Initialize board
+score = 0
+total_questions = 0
+cheese_score = 0
+yellow_cheese =0
+green_cheese=0
+pink_cheese=0
+blue_cheese=0
+purple_cheese=0
+orange_cheese=0
 
 # Load images
 cheese = pygame.image.load("media/cheese_slice.png")
@@ -92,7 +102,6 @@ def draw_board():
     pygame.draw.circle(screen, light_grey, center, 58)
     pygame.draw.rect(screen, very_light_grey, [screen_width - 400, screen_height -1000, 350, 250])
     screen.blit(sub_title, (screen_width/2-100, screen_height/2-500))
-
 
 #initialize the circle grids
 def pursuit_board():
@@ -137,29 +146,22 @@ def pursuit_board():
             x5 = center[0] + int(radius_50 * math.cos(angle))
             y5 = center[1] + int(radius_50 * math.sin(angle))
             pygame.draw.circle(screen, light_grey, (x5, y5), 20)
-     
-    # screen.blit(scoring, (screen_width/2+450, screen_height/2 - 250))
-    # pygame.draw.rect(screen, black, [1140, 340, 620, 320])
-    # pygame.draw.rect(screen, light_grey, [1150, 350, 600, 300])
 
-    # screen.blit(player_name, (screen_width/2+210, screen_height/2 - 180))
-    # screen.blit(score, (screen_width/2+210, screen_height/2 - 160))
-
-    screen.blit(legend, (screen_width/2+180, screen_height/2 +200))
-    pygame.draw.circle(screen, blue, (screen_width/2+180, screen_height/2 +250), 20)
-    pygame.draw.circle(screen, green, (screen_width/2+180, screen_height/2 +300), 20)
-    pygame.draw.circle(screen, pink, (screen_width/2+180, screen_height/2 +350), 20)
-    pygame.draw.circle(screen, orange, (screen_width/2+550, screen_height/2 +250), 20)
-    pygame.draw.circle(screen, yellow, (screen_width/2+550, screen_height/2 +300), 20)
-    pygame.draw.circle(screen, purple, (screen_width/2+550, screen_height/2 +350), 20)
+    screen.blit(legend, (screen_width/2, screen_height/2 +280))
+    pygame.draw.circle(screen, blue, (screen_width/2+180, screen_height/2 +290), 20)
+    pygame.draw.circle(screen, green, (screen_width/2+180, screen_height/2 +340), 20)
+    pygame.draw.circle(screen, pink, (screen_width/2+180, screen_height/2 +390), 20)
+    pygame.draw.circle(screen, orange, (screen_width/2+600, screen_height/2 +290), 20)
+    pygame.draw.circle(screen, yellow, (screen_width/2+600, screen_height/2 +340), 20)
+    pygame.draw.circle(screen, purple, (screen_width/2+600, screen_height/2 +390), 20)
 
 
-    screen.blit(theme1, (screen_width/2+210, screen_height/2 +240))
-    screen.blit(theme2, (screen_width/2+210, screen_height/2 +290))
-    screen.blit(theme3, (screen_width/2+210, screen_height/2 +340))
-    screen.blit(theme4, (screen_width/2+580, screen_height/2 +240))
-    screen.blit(theme5, (screen_width/2+580, screen_height/2 +290))
-    screen.blit(theme6, (screen_width/2+580, screen_height/2 +340))
+    screen.blit(db, (screen_width/2+210, screen_height/2 +280))
+    screen.blit(langage_progra, (screen_width/2+210, screen_height/2 +330))
+    screen.blit(ligne_commande, (screen_width/2+210, screen_height/2 +380))
+    screen.blit(ia, (screen_width/2+630, screen_height/2 +280))
+    screen.blit(agile, (screen_width/2+630, screen_height/2 +330))
+    screen.blit(devops, (screen_width/2+630, screen_height/2 +380))
 
             
 def draw_player(position):
@@ -189,52 +191,155 @@ def get_case_category(position,cases):
     cat = cases[position]
     return cat
 
-def draw_question(cat):
-
-    with open("media/questions.JSON", 'r', encoding='utf-8') as file:
-            data = json.load(file)
-    questions = data[cat]
-    question_dict = random.choice(questions)
-    question = question_dict['question']
-    choice = question_dict['choix']
-    answers = question_dict['reponse']
-
-    display_question = smallfont.render(question, True, black)
-    screen.blit(display_question, (screen_width/2+210, screen_height/2 - 130))
-    
-    for i, choice in enumerate(choice):
-        choice_text = smallfont.render(f"{i+1}. {choice}", True, black)
-        screen.blit(choice_text, (screen_width/2 + 210, screen_height/2 - 90 + i * 40))
-        pygame.draw.rect(screen, light_grey, [screen_width/2+180, screen_height/2-90+ i * 40, 20, 20])
-        mouse = pygame.mouse.get_pos()
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if screen_width/2+180 <= mouse[0] <= screen_width/2+200 and screen_height/2-90 + i*40 <= mouse[1] <= screen_height/2-70+ i*40:
-                    choosen_answer = choice_text
-
-
-
-
-    
-    return question, choice #, answers
-
-#
-#  def move(move_path, direction, cases):
-#     if direction == ">":
-#         player_position = (player_position + move_path) % len(cases)
-#     if direction == "<":
-#             player_position = (player_position + move_path) % len(cases)
-#     return player_position
-
 current_question = None
 current_choices = None
+current_answer   = None
+
+def load_question(cat):
+    """Charge une nouvelle question pour une catégorie donnée."""
+    global current_question, current_choices, current_answer
+    with open("media/questions.JSON", 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    questions = data[cat]
+    question_dict = random.choice(questions)
+    current_question = question_dict['question']
+    current_choices = question_dict['choix']
+    current_answer = question_dict['reponse']
+
+
+verification_done = False
+
+
+validated_answers = [None, None, None, None]  # Permet de garder l'état de chaque réponse (None, True, False)
+
+def check_answer(selected_index):
+    """Vérifie si l'index sélectionné correspond à la bonne réponse et marque le résultat."""
+    global validated_answers, current_choices, current_answer, verification_done, total_questions, score, cheese_score, yellow_cheese, green_cheese, pink_cheese, blue_cheese, purple_cheese, orange_cheese
+   
+    total_questions+=1
+    # Comparer la réponse sélectionnée avec la bonne réponse
+    if current_choices[selected_index] == current_answer:
+        validated_answers[selected_index] = True  # Marquer comme bonne réponse
+        verification_done = True  # Valider la question
+        score+=1
+
+        if player_position % 6 == 0:
+            cheese_score += 1
+
+            cat = get_case_category(player_position,cases)
+            if cat == "Bases de données":
+                blue_cheese = 1
+            if cat == "Langages de programmation":
+                green_cheese = 1
+            if cat == "Ligne de commandes":
+                pink_cheese = 1
+            if cat == "Actualités IA":
+                orange_cheese = 1
+            if cat == "Agile":
+                yellow_cheese = 1
+            if cat == "DevOps":
+                purple_cheese = 1
+       
+    else:
+        validated_answers[selected_index] = False  # Marquer comme mauvaise réponse
+        # Marquer également la bonne réponse en vert
+        correct_index = current_choices.index(current_answer)
+        validated_answers[correct_index] = True
+        verification_done = True  # Valider la question
+
+def draw_question():
+    """Dessine la question et ses choix sur l'écran."""
+    global current_question, current_choices, validated_answers
+
+    if current_question:
+        # Dessiner la question
+        question_text = smallfont.render(current_question, True, black)
+        screen.blit(question_text, (screen_width / 2 + 200, screen_height / 2 - 180))
+
+        # Dessiner les choix
+        for i, choice in enumerate(current_choices):
+            choice_text = smallfont.render(choice, True, black)
+
+            # Déterminer la couleur de l'arrière-plan en fonction de la validation
+            if validated_answers[i] is None:  # Pas encore validé
+                bg_color = light_grey
+            elif validated_answers[i]:  # Bonne réponse
+                bg_color = green
+            else:  # Mauvaise réponse
+                bg_color = red
+
+            # Dessiner le rectangle coloré et le texte du choix
+            x = screen_width / 2 + 200
+            y = screen_height / 2 - 88 + i * 40
+            pygame.draw.rect(screen, bg_color, [x - 10, y, 20, 20])
+            screen.blit(choice_text, (x +40, y))
+
+        draw_score()
+
+def draw_button_reroll():
+    """Dessine un bouton pour relancer le dé."""
+    button_color = light_grey  # Bleu
+    button_text_color = black
+    button_rect = pygame.Rect(screen_width/2+200, screen_height-2 - 450, 200, 50)  # Position du bouton
+
+    # Dessiner le bouton
+    pygame.draw.rect(screen, button_color, button_rect)
+
+    # Ajouter le texte "Relancer le dé"
+    button_text = smallfont.render("Relancer le dé", True, button_text_color)
+    text_rect = button_text.get_rect(center=button_rect.center)
+    screen.blit(button_text, text_rect)
+
+    return button_rect  # Retourner le rectangle pour détecter les clics
+
+def reroll_dice():
+    """Relance le dé et met à jour la position du joueur."""
+    global player_position, verification_done, validated_answers, current_question, current_choices
+
+    # Simuler un lancer de dé (1 à 6)
+    verification_done = False
+    validated_answers = [None] * 4
+    current_question = None
+    current_choices = None
+
+    # Simuler un nouveau lancer de dé
+    move_path = rolling_dice()
+    return move_path
+
+def draw_score():
+    """Affiche le score actuel sur l'écran."""
+    global score, total_questions, cheese_score, blue_cheese, orange_cheese, yellow_cheese, green_cheese, purple_cheese, pink_cheese
+    score_text = smallfont.render(f"Score : {score}/{total_questions}", True, red)
+    screen.blit(score_text, (screen_width/2+200, screen_height-2 - 380))
+    cheese_text = smallfont.render(f"Camemberts : {cheese_score}", True, red)
+    screen.blit(cheese_text, (screen_width/2 + 200, screen_height-2 - 340))
+    
+    if blue_cheese == 1:
+        blue_text = xsfont.render("Camembert bleu validé", True, red)
+        screen.blit(blue_text, (screen_width/2 + 600, screen_height-2 - 400))
+    if green_cheese == 1:
+        green_text = xsfont.render("Camembert vert validé", True, red)
+        screen.blit(green_text, (screen_width/2 + 600, screen_height-2 - 380))
+    if pink_cheese == 1:
+        pink_text = xsfont.render("Camembert rose validé", True, red)
+        screen.blit(pink_text, (screen_width/2 + 600, screen_height-2 - 360))
+    if orange_cheese == 1:
+        orange_text = xsfont.render("Camembert orange validé", True, red)
+        screen.blit(orange_text, (screen_width/2 + 600, screen_height-2 - 340))
+    if yellow_cheese == 1:
+        yellow_text = xsfont.render("Camembert jaune validé", True, red)
+        screen.blit(yellow_text, (screen_width/2 + 600, screen_height-2 - 320))
+    if purple_cheese == 1:
+        purple_text = xsfont.render("Camembert violet validé", True, red)
+        screen.blit(purple_text, (screen_width/2 + 600, screen_height-2 - 300))
+            
 
 def main():
-    global player_position, current_question, current_choices
+    global player_position, verification_done, current_question, current_choices
     direction = None
     move_path = None
-    
     running = True
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -242,61 +347,71 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse = pygame.mouse.get_pos()
-                if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height-980 <= mouse[1] <= screen_height-940:
-                    # Roll dice and update position
-                    move_path = rolling_dice()
-                    direction =None
-                    #current_question, current_choices = None, None
 
-                if move_path is not None:
-                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-880<=mouse[1]<=screen_height-840:
+                # Détection du clic sur le bouton "Relancer le dé"
+                if verification_done:
+                    reroll_button_rect = draw_button_reroll()
+                    if reroll_button_rect.collidepoint(mouse):
+                        move_path = reroll_dice()
+                        direction = None
+
+                # Lancer le dé initialement
+                if not verification_done:
+                    if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height - 980 <= mouse[1] <= screen_height - 940:
+                        move_path = rolling_dice()
+                        direction = None
+
+                # Gestion des réponses
+                if current_choices is not None and not verification_done:
+                    for i in range(len(current_choices)):
+                        x = screen_width / 2 + 200
+                        y = screen_height / 2 - 88 + i * 40
+                        if x <= mouse[0] <= x + 20 and y <= mouse[1] <= y + 20:
+                            check_answer(i)
+
+                # Gestion des boutons de direction
+                if move_path is not None and not verification_done:
+                    if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height - 880 <= mouse[1] <= screen_height - 840:
                         player_position = (player_position + move_path) % len(cases)
                         direction = 1
-                        
 
-                    if screen_width -300 <=mouse[0]<=screen_width-160 and screen_height-830<=mouse[1]<=screen_height-790:
+                    if screen_width - 300 <= mouse[0] <= screen_width - 160 and screen_height - 830 <= mouse[1] <= screen_height - 790:
                         player_position = (player_position - move_path) % len(cases)
                         direction = -1
-                        
-        # Draw the board and the player
+
+        # Dessiner le plateau et les autres éléments
         draw_board()
         pursuit_board()
-        
         draw_player(player_position)
-        
-         # Afficher le score du dé
-        if move_path is not None:
-            dice_result(move_path)
+        draw_score
 
-        # Dessiner les boutons de direction
-        if move_path is not None: #and not question_displayed:
+        # Dessiner les boutons et afficher les résultats
+        if move_path is not None and not verification_done:
+            dice_result(move_path)
             draw_buttons()
 
-        if direction is not None and current_question is None:
-            cat = get_case_category(player_position,cases)
-            current_question, current_question=draw_question(cat)
-            direction =None
+        # Charger une question si le déplacement est terminé
+        if direction is not None and current_question is None and not verification_done:
+            cat = get_case_category(player_position, cases)
+            load_question(cat)
+            direction = None
+
+        # Dessiner la question et les choix
+        draw_question()
         
-        if current_question is not None and current_choices is not None:
-            display_question = smallfont.render(current_question, True, black)
-            screen.blit(display_question, (screen_width / 2 + 210, screen_height / 2 - 130))
-            direction =None
-        # Draw the dice button
-        pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height -980, 140, 40])
-        screen.blit(text_dice, (screen_width -250, screen_height -980 + 10))
+        # Dessiner le bouton de dé
+        pygame.draw.rect(screen, light_grey, [screen_width - 300, screen_height - 980, 140, 40])
+        screen.blit(text_dice, (screen_width - 250, screen_height - 980 + 10))
 
-        # Print the last result of dice to the player
-        # if last_dice_result is not None:
-        #     texte=f"Résultat : {last_dice_result}"
-        #     move_number = smallfont.render(texte, True, black)
-        #     screen.blit(move_number, (screen_width - 200, screen_height / 2 + 50, 140, 40))
+        # Bouton "Relancer le dé" si la vérification est terminée
+        if verification_done:
+            draw_button_reroll()
 
+        # Rafraîchir l'écran
         pygame.display.flip()
-        clock.tick(2)
+        clock.tick(10)
 
     pygame.quit()
 
-
 if __name__ == "__main__":
     main()
-
