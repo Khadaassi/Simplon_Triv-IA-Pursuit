@@ -46,7 +46,7 @@ class Game:
         Returns:
             dict: Dictionary containing questions categorized by themes.
         """
-        with open("data/questions.json", "r") as file:
+        with open("data/questions.JSON", "r") as file:
             return json.load(file)
 
 

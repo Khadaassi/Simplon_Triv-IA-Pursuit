@@ -16,7 +16,7 @@ def main():
     
     game = Game([player1, player2])
     
-    print(f"{YELLOW}                  Le jeu commence !")
+    print(f"{YELLOW}                  Le >eu commence !")
     print(f"{YELLOW}-"* 54)
 
     while True:
